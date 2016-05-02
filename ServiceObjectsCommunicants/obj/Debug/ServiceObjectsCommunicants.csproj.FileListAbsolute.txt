@@ -1,0 +1,6 @@
+c:\users\pt103099\documents\visual studio 2013\Projects\ObjectsCommunicants\ServiceObjectsCommunicants\bin\Debug\ServiceObjectsCommunicants.dll.config
+c:\users\pt103099\documents\visual studio 2013\Projects\ObjectsCommunicants\ServiceObjectsCommunicants\bin\Debug\ServiceObjectsCommunicants.dll
+c:\users\pt103099\documents\visual studio 2013\Projects\ObjectsCommunicants\ServiceObjectsCommunicants\bin\Debug\ServiceObjectsCommunicants.pdb
+c:\users\pt103099\documents\visual studio 2013\Projects\ObjectsCommunicants\ServiceObjectsCommunicants\obj\Debug\ServiceObjectsCommunicants.csprojResolveAssemblyReference.cache
+c:\users\pt103099\documents\visual studio 2013\Projects\ObjectsCommunicants\ServiceObjectsCommunicants\obj\Debug\ServiceObjectsCommunicants.dll
+c:\users\pt103099\documents\visual studio 2013\Projects\ObjectsCommunicants\ServiceObjectsCommunicants\obj\Debug\ServiceObjectsCommunicants.pdb

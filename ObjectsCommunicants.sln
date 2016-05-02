@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceObjectsCommunicants", "ServiceObjectsCommunicants\ServiceObjectsCommunicants.csproj", "{6BBFC956-FCB3-4C96-8401-B9F1F1C926DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{F289894E-2BA9-4B34-B6ED-6047AC65611F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6BBFC956-FCB3-4C96-8401-B9F1F1C926DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BBFC956-FCB3-4C96-8401-B9F1F1C926DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BBFC956-FCB3-4C96-8401-B9F1F1C926DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F289894E-2BA9-4B34-B6ED-6047AC65611F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F289894E-2BA9-4B34-B6ED-6047AC65611F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F289894E-2BA9-4B34-B6ED-6047AC65611F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F289894E-2BA9-4B34-B6ED-6047AC65611F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
