@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using ClassModel;
 
 namespace ServiceObjectsCommunicants
 {
@@ -18,6 +19,8 @@ namespace ServiceObjectsCommunicants
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
         // TODO: ajoutez vos opérations de service ici
+        [OperationContract]
+        User getConnection(string userName, string password);
     }
 
     // Utilisez un contrat de données (comme illustré dans l'exemple ci-dessous) pour ajouter des types composites aux opérations de service.
