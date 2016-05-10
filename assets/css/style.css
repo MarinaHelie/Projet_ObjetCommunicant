@@ -28,7 +28,7 @@ h1, h2 {
 h3 {
 	font-size: 22px;
     font-weight: 300;
-    color: #555;
+    color: #1F2121;
     line-height: 30px;
 }
 
@@ -86,16 +86,17 @@ img { max-width: 100%; }
 }
 
 .top-content .text {
-	color: #fff;
+	color: #1F2121;
+
 }
 
-.top-content .text h1 { color: #fff; }
+.top-content .text h1 { color: #1F2121; }
 
 .top-content .description {
 	margin: 20px 0 10px 0;
 }
 
-.top-content .description p { opacity: 0.8; }
+.top-content .description p { opacity: 0.8; 	font-weight: bold; }
 
 .top-content .description a {
 	color: #fff;
