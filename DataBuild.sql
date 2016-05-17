@@ -45,7 +45,7 @@ create table if not exists `consomation` (
     `heureDebut` time,
     `heureFin` time,
     `consomation`int(12),
-    `prix_conso` int(11),
+    `prix_conso` float,
     primary key (`id_u`,`id_e`,`date_debut`),
     CONSTRAINT `conso_user` FOREIGN KEY (`id_u`) REFERENCES `user` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT `conso_plug` FOREIGN KEY (`id_e`) REFERENCES `equipement` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -65,7 +65,7 @@ create table if not exists `temperature` (
     `temperature_min`float,
     `temperature_max`float,
     primary key (`id_e`, `date_debut`),
-	CONSTRAINT `temperature` FOREIGN KEY (`id_e`) REFERENCES `plug` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT `temperature` FOREIGN KEY (`id_e`) REFERENCES `equipement` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -74,47 +74,47 @@ create table if not exists `temperature` (
 
 create table if not exists `reference` (
   `id_ref` int(11) not null AUTO_INCREMENT,
-  `type_ref`(varchar 50) not null,
-  `conso_ref_min`(int 12) not null,
-  `conso_ref_max`(int 12) not null,
-  `prix_ref_min` (int 12) not null,
-  `prix_ref_max` (int 12) not null,
-  `prix_wat` (int 12) not null,
+  `type_ref`varchar(50) not null,
+  `conso_ref_min`int(12) not null,
+  `conso_ref_max`int(12) not null,
+  `prix_ref_min` float,
+  `prix_ref_max` float,
+  `prix_wat` float,
   primary key(`id_ref`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('Ampoules', , , , , );
+VALUES ('Ampoules', 100, 300, 13, 41, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Cuisinière électrique', 300,  800, 41, 110, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Réfrigérateur - congélateur', 200,  500, 27, 69, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('TV plasma', 200, 500, 27, 69, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('TV LCD', 150, 300, 21, 41, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Lave-vaisselle', 150, 300, 21, 41, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Four électrique', 150, 300, 21, 41, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Sèche-linge', 150, 250, 21, 34, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Fer à repasser', 150, 300, 21, 41, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Machine à laver', 100, 300, 14, 41, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Four à micro-ondes', 70, 150, 10, 21, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Aspirateur', 50, 100, 7, 14, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Sèche-cheveux', 30, 100, 4, 14, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Ordinateur à écran plan', 40, 100, 5, 14, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , );
+VALUES ('Cafetière', 30, 70, 4, 10, 15.03);
 INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
-VALUES ('', , , , , ); 
+VALUES ('Grille-pain', 5, 10, 1, 2, 15.03); 
 
 -- 
 -- Tabke structure for table `administrateur
