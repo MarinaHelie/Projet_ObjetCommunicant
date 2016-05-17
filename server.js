@@ -51,17 +51,6 @@ app.get('/login', function (req, res) {
 	}
 });
 
-// LOGIN ADMIN ---------------------------------------------------------------------------------------------------------------
-app.get('/loginAdmin', function (req, res) {
-	if (req.session.user) {
-		res.redirect('/mainAdmin');
-	}
-	else {
-		res.render('loginAdmin');
-	}
-});
-
-
 app.post('/login', function (req, res) {
 	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION
 		host: 'localhost',
@@ -83,6 +72,17 @@ app.post('/login', function (req, res) {
 			res.redirect('/login');
 		}
 	});
+});
+
+
+// LOGIN ADMIN ---------------------------------------------------------------------------------------------------------------
+app.get('/loginAdmin', function (req, res) {
+	if (req.session.user) {
+		res.redirect('/mainAdmin');
+	}
+	else {
+		res.render('loginAdmin');
+	}
 });
 
 app.post('/loginAdmin', function (req, res) {
@@ -108,6 +108,7 @@ app.post('/loginAdmin', function (req, res) {
 	});
 });
 
+
 // LOGOUT USER --------------------------------------------------------------------------------------------------------------
 app.get('/logout', function (req, res) {
 	delete req.session.id_user;
@@ -118,6 +119,7 @@ app.get('/logout', function (req, res) {
 	res.redirect('/login');
 
 });
+
 
 // LOGOUT ADMIN --------------------------------------------------------------------------------------------------------------
 app.get('/logoutAdmin', function (req, res) {
@@ -134,7 +136,6 @@ app.get('/logoutAdmin', function (req, res) {
 app.get('/inscription', function (req, res) {
 	res.render('inscription', {query: req.query});
 });
-
 
 app.post('/inscription', function (req, res) {
 	var connection = mysql.createConnection({
@@ -171,6 +172,7 @@ app.post('/inscription', function (req, res) {
 	});
 });
 
+
 // EQUIPEMENT ---------------------------------------------------------------------------------------------------------------
 app.get('/equipement', function(req, res) {
 	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
@@ -181,5 +183,42 @@ app.get('/equipement', function(req, res) {
 		res.render('equipement');
 	//}
 });
+
+
+// MAIN ADMIN ---------------------------------------------------------------------------------------------------------------
+app.get('/mainAdmin', function(req, res) {
+	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
+	 if(!req.session.login) {
+	 res.redirect('/');
+	 } else {
+	 */
+	res.render('mainAdmin');
+	//}
+});
+
+
+// GESTION USER ---------------------------------------------------------------------------------------------------------------
+app.get('/gestionUser', function(req, res) {
+	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
+	 if(!req.session.login) {
+	 res.redirect('/');
+	 } else {
+	 */
+	res.render('gestionUser');
+	//}
+});
+
+
+// GESTION PLUGS ---------------------------------------------------------------------------------------------------------------
+app.get('/gestionPlugs', function(req, res) {
+	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
+	 if(!req.session.login) {
+	 res.redirect('/');
+	 } else {
+	 */
+	res.render('gestionPlugs');
+	//}
+});
+
 
 app.listen(1313); 
