@@ -27,24 +27,16 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 
 logger.info('server start');
 
-wemo.discover(function(deviceInfo) 
-	{
-	  logger.info('Wemo Device Found: %j', deviceInfo);
 
-	  // Get the client for the found device
-	  var client = wemo.client(deviceInfo);
 
-	  // Handle BinaryState events
-	  client.on('binaryState', function(value) {
-	    logger.info('Binary State changed to: %s', value);
-	  });
-
-	  // Turn the switch on
-	  client.setBinaryState(1);
+app.get('/', function (req, res){
+	wemo.discover(function(deviceInfo) {
+		var device = deviceInfo;
+  		logger.info('Wemo Device Found: ', device);
+  		client.on('binaryState', function(value) {
+    		logger.info('Binary State changed to: ', value);
+    	});
 	});
-
-app.get('/', function(req, res)
-{
 	res.redirect('/login');
 });
 
