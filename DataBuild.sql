@@ -17,6 +17,8 @@ CREATE TABLE IF NOT  EXISTS `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+INSERT INTO user (nom_u, prenom_u, mail_u,mp_u) VALUES('Helie-Zadeh','Marina','marina.helie@unice.fr','admin');
+
 --
 -- Table structure for table `plug`
 -- 
