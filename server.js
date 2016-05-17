@@ -32,13 +32,13 @@ logger.info('server start');
 
 // MAIN ----------------------------------------------------------------------------------------------------------------
 app.get('/', function (req, res){
-	wemo.discover(function(deviceInfo) {
+	/*wemo.discover(function(deviceInfo) {
 		var device = deviceInfo;
   		logger.info('Wemo Device Found: ', device);
   		client.on('binaryState', function(value) {
     		logger.info('Binary State changed to: ', value);
     	});
-	});
+	});*/
 	res.redirect('/main');
 });
 
