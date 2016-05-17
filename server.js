@@ -90,8 +90,8 @@ app.get('/loginAdmin', function (req, res) {
 app.post('/loginAdmin', function (req, res) {
 	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION
 		host: 'localhost',
-		user: 'admin',
-		password: 'admin',
+		user: 'ioc',
+		password: 'ioc',
 		database: 'ioc_domotique'
 	});
 	connection.connect();
@@ -142,8 +142,8 @@ app.get('/inscription', function (req, res) {
 app.post('/inscription', function (req, res) {
 	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
 		host: 'localhost',
-		user: 'admin',
-		password: 'admin',
+		user: 'ioc',
+		password: 'ioc',
 		database: 'ioc_domotique'
 	});
 	var param = {email: req.body.email, password: req.body.password, nom: req.body.nom, prenom: req.body.prenom};
