@@ -2,13 +2,13 @@
 
 ## Contributeur
 
-Tom Phily< BR />
-Marina Helie-Zadeh< BR />
-Regis Parpex< BR />
-Stéphanie Carrié< BR />
+Tom Phily #
+Marina Helie-Zadeh #
+Regis Parpex #
+Stéphanie Carrié #
 
 ## Lancement du Projet
 
-sh DataBuild.sh< BR />
-npm install< BR />
-node server.js< BR />
+sh DataBuild.sh #
+npm install #
+node server.js #
