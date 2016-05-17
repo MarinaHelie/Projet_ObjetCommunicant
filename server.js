@@ -41,7 +41,7 @@ app.get('/', function(req, res)
 	});
 });
 
-// LOGIN ---------------------------------------------------------------------------------------------------------------
+// LOGIN USER ---------------------------------------------------------------------------------------------------------------
 app.get('/login', function (req, res) {
 	if (req.session.user) {
 		res.redirect('/equipement');
@@ -51,12 +51,22 @@ app.get('/login', function (req, res) {
 	}
 });
 
+// LOGIN ADMIN ---------------------------------------------------------------------------------------------------------------
+app.get('/loginAdmin', function (req, res) {
+	if (req.session.user) {
+		res.redirect('/mainAdmin');
+	}
+	else {
+		res.render('loginAdmin');
+	}
+});
+
 
 app.post('/login', function (req, res) {
 	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION
 		host: 'localhost',
-		user: 'admin',
-		password: '',
+		user: 'IOC',
+		password: 'test',
 		database: 'HomeMonitoring'
 	});
 	connection.connect();
@@ -71,6 +81,29 @@ app.post('/login', function (req, res) {
 		}
 		else {
 			res.redirect('/login');
+		}
+	});
+});
+
+app.post('/loginAdmin', function (req, res) {
+	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION
+		host: 'localhost',
+		user: 'admin',
+		password: 'admin',
+		database: 'HomeMonitoring'
+	});
+	connection.connect();
+	var post = [req.body.login, req.body.password];
+	connection.query("SELECT id, nom, prenom FROM users WHERE email= ? AND password= ?", post, function (err, rows) {
+		if (!err) {
+			req.session.id_user = rows[0]['id'];
+			req.session.login = req.body.login; //EMAIL
+			req.session.nom = rows[0]['nom'];
+			req.session.prenom = rows[0]['prenom'];
+			res.redirect('/mainAdmin');
+		}
+		else {
+			res.redirect('/loginAdmin');
 		}
 	});
 });
