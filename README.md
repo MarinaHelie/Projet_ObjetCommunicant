@@ -12,3 +12,5 @@ Stéphanie Carrié
 sh DataBuild.sh  
 npm install  
 node server.js  
+  
+url : localhost:1313  
