@@ -1,7 +1,13 @@
+<<<<<<< HEAD
+<% var title = 'Formulaire login administrateur' %>
+<% include head %>
+
+=======
 <% var title = 'Formulaire login Admin' %>
 <% include head %>
 
 <body id="admin">
+>>>>>>> c18ef03e509af267d17645ff5ce32baf6c1a8434
 <!-- Top content -->
 <div class="top-content">
 
@@ -9,34 +15,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>Connexion administration</strong> !</h1>
+
+                    <h1><strong>Home Monitoring</strong> !</h1>
                     <div class="description">
-                        <p>
-                            Veuillez vous connecter pour accéder aux données
-                        </p>
-                    </div>
+                        <p class="bg-danger">
+                            Veuillez vous connecter pour accéder à l'espace administrateur </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Connexion</h3>
-                            <p>Entrez votre login et mot de passe pour vous connecter:</p>
+                            <h3>Connexion à l'espace <b>Administrateur</b></h3>
+                            <p>Entrez votre login et mot de passe :</p>
                         </div>
                         <div class="form-top-right">
-                            <i class="fa fa-lock"></i>
+                           <span style="color:darkred"> <i  class="fa fa-lock "></i> </span>
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="submit.html" method="post" class="login-form">
+                        <form role="form" action="/login" method="post" class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Pseudo</label>
-                                <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                <input type="text" name="login" placeholder="adresse mail" class="form-username form-control" id="login">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Mot de Passe</label>
-                                <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                <input type="password" name="password" placeholder="Mot de passe" class="form-password form-control" id="password">
                             </div>
                             <button type="submit" class="btn">Connexion !</button>
                         </form>

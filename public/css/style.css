@@ -7,15 +7,11 @@ body {
     line-height: 30px;
     text-align: center;
 	background-image: url("../img/backgrounds/2.jpg");
-}
 
-#body-equipement {
-	background-color: silver;
-	background-image: none;
 }
 
 body .admin {
-
+	background-image: url("../img/backgrounds/bg-admin.jpg");
 }
 
 strong { font-weight: 500; }
