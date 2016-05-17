@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql'); //SI ON UTILISE MYSQL
 var session = require('express-session');
 var XMLHttpRequest = require('xhr2');
+var cookieParser = require('cookie-parser');
+var logger = require('log4js').getLogger('Server');
+var bodyParser = require('body-parser');
 var app = express();
 var Wemo = require('wemo-client');
 var wemo = new Wemo();
@@ -17,14 +20,14 @@ app.set('views', __dirname + '/views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined')); // Active le middleware de logging
-
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: 'cestunsecretoupas' })); // session secret
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
 logger.info('server start');
 
-app.get('/', function(req, res)
-{
-	wemo.discover(function(deviceInfo) 
+wemo.discover(function(deviceInfo) 
 	{
 	  logger.info('Wemo Device Found: %j', deviceInfo);
 
@@ -39,6 +42,9 @@ app.get('/', function(req, res)
 	  // Turn the switch on
 	  client.setBinaryState(1);
 	});
+
+app.get('/', function(req, res)
+{
 	res.redirect('/login');
 });
 
