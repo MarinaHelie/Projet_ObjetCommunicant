@@ -171,7 +171,7 @@ app.post('/inscription', function (req, res) {
 	});
 });
 
-// PAINT ---------------------------------------------------------------------------------------------------------------
+// EQUIPEMENT ---------------------------------------------------------------------------------------------------------------
 app.get('/equipement', function(req, res) {
 	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
 	if(!req.session.login) {
