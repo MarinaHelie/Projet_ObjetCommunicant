@@ -1,2 +1,14 @@
-generer le wsdl :
-adresse : http://localhost:8733/ServiceObjectsCommunicants/Service1/?wsdl
+# Projet_ObjetCommunicant
+
+## Contributeur
+
+Tom Phily
+Marina Helie-Zadeh
+Regis Parpex
+Stéphanie Carrié
+
+## Lancement du Projet
+
+sh DataBuild.sh
+npm install
+node server.js
