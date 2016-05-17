@@ -77,13 +77,15 @@ CREATE TABLE IF NOT  EXISTS `equipement` (
   `numero_serie` varchar(50) not null,
   `marque` varchar(50) NOT NULL,
   `id_ref` int(11),
+  `id_u` int(11) NOT NULL,
   PRIMARY KEY (`id_e`),
-  CONSTRAINT `ref` FOREIGN KEY (`id_ref`) REFERENCES `reference` (`id_ref`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ref` FOREIGN KEY (`id_ref`) REFERENCES `reference` (`id_ref`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user` FOREIGN KEY (`id_u`) REFERENCES `user` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`) VALUES ('sensor temperature 1', 'xxxx1', 'sensor');
-INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`) VALUES ('sensor temperature 2', 'xxxx2', 'sensor');
-INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`) VALUES ('sensor temperature 2', 'xxxx3', 'sensor');
+INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('sensor temperature 1', 'xxxx1', 'sensor',1);
+INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('sensor temperature 2', 'xxxx2', 'sensor',1);
+INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('sensor temperature 2', 'xxxx3', 'sensor',1);
 
 --
 -- Table structure for table `consomation`
@@ -133,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `administration` (
 PRIMARY key (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `administrateur` (`nomAdmin`, `prenomAdmin`, `mp`, `mailAdmin`) VALUES ('admin', 'test', '.', 'admin@ioc.com');
+INSERT INTO `administration` (`nomAdmin`, `prenomAdmin`, `mp`, `mailAdmin`) VALUES ('admin', 'test', '.', 'admin@ioc.com');
 
  GRANT SELECT,UPDATE,INSERT, DELETE ON ioc_domotique.* TO 'ioc'@'localhost' IDENTIFIED BY 'ioc' WITH MAX_QUERIES_PER_HOUR 100000 MAX_UPDATES_PER_HOUR 10000 MAX_CONNECTIONS_PER_HOUR 10000 MAX_USER_CONNECTIONS 10000;
  SET PASSWORD FOR 'ioc'@'localhost' = PASSWORD('ioc');
