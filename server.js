@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 logger.info('server start');
 
 
-
+// MAIN ----------------------------------------------------------------------------------------------------------------
 app.get('/', function (req, res){
 	wemo.discover(function(deviceInfo) {
 		var device = deviceInfo;
@@ -39,6 +39,7 @@ app.get('/', function (req, res){
 	});
 	res.redirect('/login');
 });
+
 
 // LOGIN USER ---------------------------------------------------------------------------------------------------------------
 app.get('/login', function (req, res) {
