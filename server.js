@@ -18,6 +18,7 @@ var token="iPt5AYfkmCNrvIN1wXzU0Bpw3uXrcfWttfQvALUwqSuser5NDnsPMdzaJr58Wrgn";
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
+// CONFIG USE ----------------------------------------------------------------------------------------------------------
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined')); // Active le middleware de logging
 app.use(cookieParser());
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'cestunsecretoupas' })); // session secret
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
+// LOGGER START --------------------------------------------------------------------------------------------------------
 logger.info('server start');
 
 
@@ -41,7 +43,7 @@ app.get('/', function (req, res){
 });
 
 
-// LOGIN USER ---------------------------------------------------------------------------------------------------------------
+// LOGIN USER ----------------------------------------------------------------------------------------------------------
 app.get('/login', function (req, res) {
 	if (req.session.user) {
 		res.redirect('/equipement');
@@ -52,20 +54,20 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
-	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION
+	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
 		host: 'localhost',
-		user: 'IOC',
-		password: 'test',
-		database: 'HomeMonitoring'
+		user: 'admin',
+		password: 'admin',
+		database: 'ioc_domotique'
 	});
 	connection.connect();
 	var post = [req.body.login, req.body.password];
-	connection.query("SELECT id, nom, prenom FROM users WHERE email= ? AND password= ?", post, function (err, rows) {
+	connection.query("SELECT id_u, nom_u, prenom_u FROM user WHERE mail_u= ? AND mp_u= ?", post, function (err, rows) {
 		if (!err) {
-			req.session.id_user = rows[0]['id'];
+			req.session.id_user = rows[0]['id_u'];
 			req.session.login = req.body.login; //EMAIL
-			req.session.nom = rows[0]['nom'];
-			req.session.prenom = rows[0]['prenom'];
+			req.session.nom = rows[0]['nom_u'];
+			req.session.prenom = rows[0]['prenom_u'];
 			res.redirect('/equipement');
 		}
 		else {
@@ -75,7 +77,7 @@ app.post('/login', function (req, res) {
 });
 
 
-// LOGIN ADMIN ---------------------------------------------------------------------------------------------------------------
+// LOGIN ADMIN ---------------------------------------------------------------------------------------------------------
 app.get('/loginAdmin', function (req, res) {
 	if (req.session.user) {
 		res.redirect('/mainAdmin');
@@ -90,16 +92,16 @@ app.post('/loginAdmin', function (req, res) {
 		host: 'localhost',
 		user: 'admin',
 		password: 'admin',
-		database: 'HomeMonitoring'
+		database: 'ioc_domotique'
 	});
 	connection.connect();
 	var post = [req.body.login, req.body.password];
-	connection.query("SELECT id, nom, prenom FROM users WHERE email= ? AND password= ?", post, function (err, rows) {
+	connection.query("SELECT id_u, nom_u, prenom_u FROM user WHERE mail_u= ? AND mp_u= ?", post, function (err, rows) {
 		if (!err) {
-			req.session.id_user = rows[0]['id'];
+			req.session.id_user = rows[0]['id_u'];
 			req.session.login = req.body.login; //EMAIL
-			req.session.nom = rows[0]['nom'];
-			req.session.prenom = rows[0]['prenom'];
+			req.session.nom = rows[0]['nom_u'];
+			req.session.prenom = rows[0]['prenom_u'];
 			res.redirect('/mainAdmin');
 		}
 		else {
@@ -109,7 +111,7 @@ app.post('/loginAdmin', function (req, res) {
 });
 
 
-// LOGOUT USER --------------------------------------------------------------------------------------------------------------
+// LOGOUT USER ---------------------------------------------------------------------------------------------------------
 app.get('/logout', function (req, res) {
 	delete req.session.id_user;
 	delete req.session.login;
@@ -121,7 +123,7 @@ app.get('/logout', function (req, res) {
 });
 
 
-// LOGOUT ADMIN --------------------------------------------------------------------------------------------------------------
+// LOGOUT ADMIN --------------------------------------------------------------------------------------------------------
 app.get('/logoutAdmin', function (req, res) {
 	delete req.session.id_user;
 	delete req.session.login;
@@ -138,23 +140,24 @@ app.get('/inscription', function (req, res) {
 });
 
 app.post('/inscription', function (req, res) {
-	var connection = mysql.createConnection({
+	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
 		host: 'localhost',
-		user: 'IOC',
-		password: 'test',
-		database: 'HomeMonitoring'
+		user: 'admin',
+		password: 'admin',
+		database: 'ioc_domotique'
 	});
 	var param = {email: req.body.email, password: req.body.password, nom: req.body.nom, prenom: req.body.prenom};
 	connection.connect();
-	connection.query("SELECT count(*) AS nb FROM users WHERE email = ?", req.body.email, function (err, rows, fields) {
+	connection.query("SELECT count(*) AS nb FROM user WHERE mail_u = ?", req.body.email, function (err, rows, fields) {
 		if (!err) {
 			if(rows[0]['nb'] == 0){
-				connection.query('INSERT INTO users SET ?', param, function(err, result) {
+				connection.query('INSERT INTO user SET ?', param, function(err, result) {
 					if(!err){
-						req.session.id_user = param['id'];
-						req.session.login = param['email'];
-						req.session.nom = param['nom'];
-						req.session.prenom = param['prenom'];
+						req.session.id_user = param['id_u'];
+						req.session.nom = param['nom_u'];
+						req.session.prenom = param['prenom_u'];
+						req.session.login = param['mail_u'];
+						req.session.password = param['mp_u'];
 						res.redirect('/equipement');
 					} else {
 						res.redirect('/inscription');
@@ -173,7 +176,7 @@ app.post('/inscription', function (req, res) {
 });
 
 
-// EQUIPEMENT ---------------------------------------------------------------------------------------------------------------
+// EQUIPEMENT ----------------------------------------------------------------------------------------------------------
 app.get('/equipement', function(req, res) {
 	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
 	if(!req.session.login) {
@@ -185,7 +188,7 @@ app.get('/equipement', function(req, res) {
 });
 
 
-// MAIN ADMIN ---------------------------------------------------------------------------------------------------------------
+// MAIN ADMIN ----------------------------------------------------------------------------------------------------------
 app.get('/mainAdmin', function(req, res) {
 	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
 	 if(!req.session.login) {
@@ -197,7 +200,7 @@ app.get('/mainAdmin', function(req, res) {
 });
 
 
-// GESTION USER ---------------------------------------------------------------------------------------------------------------
+// GESTION USER --------------------------------------------------------------------------------------------------------
 app.get('/gestionUser', function(req, res) {
 	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
 	 if(!req.session.login) {
@@ -209,7 +212,7 @@ app.get('/gestionUser', function(req, res) {
 });
 
 
-// GESTION PLUGS ---------------------------------------------------------------------------------------------------------------
+// GESTION PLUGS -------------------------------------------------------------------------------------------------------
 app.get('/gestionPlugs', function(req, res) {
 	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
 	 if(!req.session.login) {

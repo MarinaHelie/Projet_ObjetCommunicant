@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
     $.backstretch([
                     "img/backgrounds/2.jpg"
 	             ], {duration: 3000, fade: 750});
-    
+
     /*
         Form validation
     */
