@@ -108,7 +108,7 @@ app.post('/loginAdmin', function (req, res) {
 	});
 });
 
-// LOGOUT --------------------------------------------------------------------------------------------------------------
+// LOGOUT USER --------------------------------------------------------------------------------------------------------------
 app.get('/logout', function (req, res) {
 	delete req.session.id_user;
 	delete req.session.login;
@@ -116,6 +116,17 @@ app.get('/logout', function (req, res) {
 	delete req.session.prenom;
 
 	res.redirect('/login');
+
+});
+
+// LOGOUT ADMIN --------------------------------------------------------------------------------------------------------------
+app.get('/logoutAdmin', function (req, res) {
+	delete req.session.id_user;
+	delete req.session.login;
+	delete req.session.nom;
+	delete req.session.prenom;
+
+	res.redirect('/loginAdmin');
 
 });
 
