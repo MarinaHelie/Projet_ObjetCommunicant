@@ -50,7 +50,7 @@ app.get('/main', function(req, res){
 // LOGIN USER ----------------------------------------------------------------------------------------------------------
 app.get('/login', function (req, res) {
 	if (req.session.user) {
-		res.redirect('/equipement');
+		res.redirect('/utilisateur');
 	}
 	else {
 		res.render('login');
@@ -72,7 +72,7 @@ app.post('/login', function (req, res) {
 			req.session.login = req.body.login; //EMAIL
 			req.session.nom = rows[0]['nom_u'];
 			req.session.prenom = rows[0]['prenom_u'];
-			res.redirect('/equipement');
+			res.redirect('/utilisateur');
 		}
 		else {
 			res.redirect('/login');
@@ -122,7 +122,7 @@ app.get('/logout', function (req, res) {
 	delete req.session.nom;
 	delete req.session.prenom;
 
-	res.redirect('/login');
+	res.redirect('/main');
 
 });
 
@@ -180,6 +180,14 @@ app.post('/inscription', function (req, res) {
 });
 
 
+// PANEL UTILISATEUR ----------------------------------------------------------------------------------------------------------
+app.get('/utilisateur', function(req, res) {
+	if(!req.session.login) {
+		res.redirect('/main');
+	} else {
+	res.render('utilisateur');
+	}
+});
 // EQUIPEMENT ----------------------------------------------------------------------------------------------------------
 app.get('/equipement', function(req, res) {
 	//if(!req.session.login) {
