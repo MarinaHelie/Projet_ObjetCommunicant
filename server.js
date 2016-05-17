@@ -54,10 +54,10 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
-	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+	var connection = mysql.createConnection({
 		host: 'localhost',
-		user: 'admin',
-		password: 'admin',
+		user: 'ioc',
+		password: 'ioc',
 		database: 'ioc_domotique'
 	});
 	connection.connect();
