@@ -10,7 +10,11 @@ body {
 
 }
 
-body .admin {
+.body-equipement {
+	background-image: none;
+}
+
+.body-admin {
 	background-image: url("../img/backgrounds/bg-admin.jpg");
 }
 
