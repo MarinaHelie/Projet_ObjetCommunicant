@@ -20,16 +20,17 @@ CREATE TABLE IF NOT  EXISTS `user` (
 INSERT INTO user (nom_u, prenom_u, mail_u,mp_u) VALUES('Helie-Zadeh','Marina','marina.helie@unice.fr','admin');
 
 --
--- Table structure for table `plug`
+-- Table structure for table `equipement`
 -- 
 
 
-CREATE TABLE IF NOT  EXISTS `plug` (
-  `id_p` int(11) NOT NULL AUTO_INCREMENT,
-  `numero_p` int(50) not null,
-  `marque_p` varchar(50) not null,
-  `type_p` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_p`)
+CREATE TABLE IF NOT  EXISTS `equipement` (
+  `id_e` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) not null,
+  `numero_serie` int(50) not null,
+  `marque` varchar(50) NOT NULL,
+  `id_ref` int(11) NOT NULL,
+  PRIMARY KEY (`id_e`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -38,24 +39,24 @@ CREATE TABLE IF NOT  EXISTS `plug` (
 
 create table if not exists `consomation` (
 	`id_u`int(11) not null,
-    `id_p`int(11) not null,
+    `id_e`int(11) not null,
     `date_debut` date,
     `date_fin`date,
     `heureDebut` time,
     `heureFin` time,
     `consomation`int(12),
-    primary key (`id_u`,`id_p`,`date_debut`),
+    `prix_conso` int(11),
+    primary key (`id_u`,`id_e`,`date_debut`),
     CONSTRAINT `conso_user` FOREIGN KEY (`id_u`) REFERENCES `user` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `conso_plug` FOREIGN KEY (`id_p`) REFERENCES `plug` (`id_p`) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT `conso_plug` FOREIGN KEY (`id_e`) REFERENCES `equipement` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `temperature`
 -- 
 
-create table if not exists `consomation` (
-	`id_u`int(11) not null,
-    `id_p`int(11) not null,
+create table if not exists `temperature` (
+    `id_e`int(11) not null,
     `date_debut` date,
     `date_fin`date,
     `heureDebut` time,
@@ -63,10 +64,57 @@ create table if not exists `consomation` (
     `temperature_actuel`int(12),
     `temperature_min`float,
     `temperature_max`float,
-    primary key (`id_u`,`id_p`, `date_debut`),
-    CONSTRAINT `temperature_user` FOREIGN KEY (`id_u`) REFERENCES `user` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `temperature` FOREIGN KEY (`id_p`) REFERENCES `plug` (`id_p`) ON DELETE CASCADE ON UPDATE CASCADE
+    primary key (`id_e`, `date_debut`),
+	CONSTRAINT `temperature` FOREIGN KEY (`id_e`) REFERENCES `plug` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `reference`
+--
+
+create table if not exists `reference` (
+  `id_ref` int(11) not null AUTO_INCREMENT,
+  `type_ref`(varchar 50) not null,
+  `conso_ref_min`(int 12) not null,
+  `conso_ref_max`(int 12) not null,
+  `prix_ref_min` (int 12) not null,
+  `prix_ref_max` (int 12) not null,
+  `prix_wat` (int 12) not null,
+  primary key(`id_ref`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('Ampoules', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , );
+INSERT INTO `reference` (`type_ref`, `conso_ref_min`, `conso_ref_max`, `prix_ref_min`, `prix_ref_max`, `prix_wat`)
+VALUES ('', , , , , ); 
 
 -- 
 -- Tabke structure for table `administrateur
