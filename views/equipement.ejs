@@ -1,5 +1,7 @@
 <% var title = 'Historique equipement' %>
 <% include head %>
+
+<body id="body-equipement">
 <!-- Top content -->
 <h1>Récupération des données de vos équipements</h1>
 <div class="top-content">
@@ -12,10 +14,10 @@
                         <button style="margin-bottom: 40px" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choix de l'équipement
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Chauffage</a></li>
-                            <li><a href="#">Séche-Linge</a></li>
-                            <li><a href="#">Téléviseurs</a></li>
-                            <li><a href="#">Réfrigirateur</a></li>
+                            <li><a href="/equipement?chauffage">Chauffage</a></li>
+                            <li><a href="/equipement?secheLinge">Séche-Linge</a></li>
+                            <li><a href="/equipement?televiseurs">Téléviseurs</a></li>
+                            <li><a href="/equipement?refrigirateur">Réfrigirateur</a></li>
                         </ul>
                     </span>
                 </div>

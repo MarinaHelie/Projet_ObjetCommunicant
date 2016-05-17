@@ -6,7 +6,12 @@ body {
     color: #888;
     line-height: 30px;
     text-align: center;
+	background-image: url("../img/backgrounds/2.jpg");
 
+}
+
+body .admin {
+	background-image: url("../img/backgrounds/bg-admin.jpg");
 }
 
 strong { font-weight: 500; }
