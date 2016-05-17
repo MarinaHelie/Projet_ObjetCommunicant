@@ -3,20 +3,19 @@
   "version": "0.0.1",
   "description": "Serveur Domotic TP",
   "main": "index.js",
-  "scripts": 
-  {
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": 
-  [
+  "keywords": [
     "NODEJS"
   ],
   "author": "phily",
   "license": "IDSE",
-  "dependencies": 
-  {
+  "dependencies": {
     "body-parser": "^1.14.2",
     "wemo-client": "*",
+    "express-session": "*",
+    "mysql": "*",
     "xhr2": "*",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
