@@ -10,9 +10,11 @@ body {
 
 }
 
-body .admin {
-	background-image: url("../img/backgrounds/bg-admin.jpg");
+.body-equipement {
+	background-image: none;
 }
+
+
 
 strong { font-weight: 500; }
 
