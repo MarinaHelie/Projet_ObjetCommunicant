@@ -127,7 +127,48 @@ app.get('/logoutAdmin', function (req, res) {
 	delete req.session.prenom;
 
 	res.redirect('/loginAdmin');
+});
 
+
+// INSCRIPTION ---------------------------------------------------------------------------------------------------------
+app.get('/inscription', function (req, res) {
+	res.render('inscription', {query: req.query});
+});
+
+
+app.post('/inscription', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'IOC',
+		password: 'test',
+		database: 'HomeMonitoring'
+	});
+	var param = {email: req.body.email, password: req.body.password, nom: req.body.nom, prenom: req.body.prenom};
+	connection.connect();
+	connection.query("SELECT count(*) AS nb FROM users WHERE email = ?", req.body.email, function (err, rows, fields) {
+		if (!err) {
+			if(rows[0]['nb'] == 0){
+				connection.query('INSERT INTO users SET ?', param, function(err, result) {
+					if(!err){
+						req.session.id_user = param['id'];
+						req.session.login = param['email'];
+						req.session.nom = param['nom'];
+						req.session.prenom = param['prenom'];
+						res.redirect('/equipement');
+					} else {
+						res.redirect('/inscription');
+					}
+				});
+			}
+
+		} else {
+			var query =
+				"nom=" + req.body.nom +
+				"&prenom =" + req.body.prenom
+			res.redirect('inscription/?' + query);
+		}
+		connection.end();
+	});
 });
 
 app.listen(1313); 
