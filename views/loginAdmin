@@ -1,4 +1,0 @@
-<% var title = 'Inscription' %>
-<% include head %>
-    <h1>HELLO LOGIN ADMIN</h1>
-<% include foot %>
