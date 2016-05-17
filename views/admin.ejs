@@ -1,0 +1,52 @@
+<% var title = 'Formulaire login administrateur' %>
+<% include head %>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p class="bg-danger">
+                            Votre espace dédié pour gérer l'ensemble de vos équipements de chez vous
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Espace <b>Administrateur</b>  </h3>
+                            <p>Gerer l'ensemble de l'application</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:darkred"> <i class="fa fa-desktop" aria-hidden="true"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+
+                        <a href="/gestionEA" class="btn btn-block btn-info"><span class="glyphicon glyphicon-home"></span>  Gestion des équipements </a> <br />
+                        <a href="/gestionUA" class="btn btn-block btn-success"><span class="glyphicon glyphicon-user"></span> Gestion des utilisateurs  </a> <br />
+                        <a href="/gestionRA" class="btn btn-block btn-warning"><span class="glyphicon glyphicon-cog"></span> Gestion de la table de référence </a> <br />
+                        <a href="/logout" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-log-out"></span> Déconnexion </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+<% include foot%>

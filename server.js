@@ -106,7 +106,7 @@ app.post('/loginAdmin', function (req, res) {
 			req.session.login = req.body.login; //EMAIL
 			req.session.nom = rows[0]['nomAdmin'];
 			req.session.prenom = rows[0]['prenomAdmin'];
-			res.redirect('/mainAdmin');
+			res.redirect('/admin');
 		}
 		else {
 			res.redirect('/loginAdmin');
@@ -201,14 +201,12 @@ app.get('/gestionEU', function(req, res) {
 
 
 // MAIN ADMIN ----------------------------------------------------------------------------------------------------------
-app.get('/mainAdmin', function(req, res) {
-	/* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
+app.get('/admin', function(req, res) {
 	 if(!req.session.login) {
 	 res.redirect('/');
 	 } else {
-	 */
-	res.render('mainAdmin');
-	//}
+	res.render('admin');
+	}
 });
 
 
