@@ -150,20 +150,22 @@ app.post('/inscription', function (req, res) {
 		password: 'ioc',
 		database: 'ioc_domotique'
 	});
-	var param = {email: req.body.email, password: req.body.password, nom: req.body.nom, prenom: req.body.prenom};
+	var param = {nom_u: req.body.nom, prenom_u: req.body.prenom, mail_u: req.body.email, mp_u: req.body.password };
 	connection.connect();
 	connection.query("SELECT count(*) AS nb FROM user WHERE mail_u = ?", req.body.email, function (err, rows, fields) {
 		if (!err) {
 			if(rows[0]['nb'] == 0){
 				connection.query('INSERT INTO user SET ?', param, function(err, result) {
 					if(!err){
+						logger.info("donnée utilisateur :", param);
 						req.session.id_user = param['id_u'];
 						req.session.nom = param['nom_u'];
 						req.session.prenom = param['prenom_u'];
 						req.session.login = param['mail_u'];
 						req.session.password = param['mp_u'];
-						res.redirect('/equipement');
+						res.redirect('/utilisateur');
 					} else {
+						logger.info("erreur boulet :", err);
 						res.redirect('/inscription');
 					}
 				});
