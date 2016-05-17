@@ -195,7 +195,7 @@ app.get('/gestionEU', function(req, res) {
 	if(!req.session.login) {
 		res.redirect('/');
 	} else {
-		res.render('equipement');
+		res.render('gestionEU');
 	}
 });
 
