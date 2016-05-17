@@ -26,19 +26,20 @@ app.get('/', function(req, res)
 {
 	wemo.discover(function(deviceInfo) 
 	{
-	  console.log('Wemo Device Found: %j', deviceInfo);
+	  logger.info('Wemo Device Found: %j', deviceInfo);
 
 	  // Get the client for the found device
 	  var client = wemo.client(deviceInfo);
 
 	  // Handle BinaryState events
 	  client.on('binaryState', function(value) {
-	    console.log('Binary State changed to: %s', value);
+	    logger.info('Binary State changed to: %s', value);
 	  });
 
 	  // Turn the switch on
 	  client.setBinaryState(1);
 	});
+	res.redirect('/login');
 });
 
 // LOGIN ---------------------------------------------------------------------------------------------------------------
