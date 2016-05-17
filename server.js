@@ -50,7 +50,7 @@ app.get('/main', function(req, res){
 // LOGIN USER ----------------------------------------------------------------------------------------------------------
 app.get('/login', function (req, res) {
 	if (req.session.user) {
-		res.redirect('/equipement');
+		res.redirect('/utilisateur');
 	}
 	else {
 		res.render('login');
@@ -72,7 +72,7 @@ app.post('/login', function (req, res) {
 			req.session.login = req.body.login; //EMAIL
 			req.session.nom = rows[0]['nom_u'];
 			req.session.prenom = rows[0]['prenom_u'];
-			res.redirect('/equipement');
+			res.redirect('/utilisateur');
 		}
 		else {
 			res.redirect('/login');
@@ -124,6 +124,17 @@ app.get('/logout', function (req, res) {
 
 	res.redirect('/main');
 
+
+});
+
+
+// LOGOUT ADMIN --------------------------------------------------------------------------------------------------------
+app.get('/logoutAdmin', function (req, res) {
+	delete req.session.id_user;
+	delete req.session.login;
+	delete req.session.nom;
+	delete req.session.prenom;
+
 });
 
 
@@ -169,11 +180,27 @@ app.post('/inscription', function (req, res) {
 });
 
 
+<<<<<<< HEAD
+// PANEL UTILISATEUR ----------------------------------------------------------------------------------------------------------
+app.get('/utilisateur', function(req, res) {
+	if(!req.session.login) {
+		res.redirect('/main');
+	} else {
+	res.render('utilisateur');
+	}
+});
+// EQUIPEMENT ----------------------------------------------------------------------------------------------------------
+app.get('/equipement', function(req, res) {
+	//if(!req.session.login) {
+	//	res.redirect('/');
+	//} else {
+=======
 // Gestion EQUIPEMENT ----------------------------------------------------------------------------------------------------------
 app.get('/gestionEU', function(req, res) {
 	if(!req.session.login) {
 		res.redirect('/');
 	} else {
+>>>>>>> 21b19aaf18a6473bc62c4bdd5516b74b25c9119f
 		res.render('equipement');
 	}
 });
