@@ -39,10 +39,14 @@ app.get('/', function (req, res){
     		logger.info('Binary State changed to: ', value);
     	});
 	});
-	res.redirect('/login');
+	res.redirect('/main');
 });
 
+// PAGE INDEX ----------------------------------------------------------------------------------------------------------
 
+app.get('/main', function(req, res){
+	res.render('main');
+});
 // LOGIN USER ----------------------------------------------------------------------------------------------------------
 app.get('/login', function (req, res) {
 	if (req.session.user) {
