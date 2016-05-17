@@ -100,12 +100,12 @@ app.post('/loginAdmin', function (req, res) {
 	});
 	connection.connect();
 	var post = [req.body.login, req.body.password];
-	connection.query("SELECT id_u, nom_u, prenom_u FROM user WHERE mail_u= ? AND mp_u= ?", post, function (err, rows) {
+	connection.query("SELECT idAdmin, nomAdmin, prenomAdmin FROM administration WHERE mailAdmin= ? AND mp= ?", post, function (err, rows) {
 		if (!err) {
-			req.session.id_user = rows[0]['id_u'];
+			req.session.id_user = rows[0]['idAdmin'];
 			req.session.login = req.body.login; //EMAIL
-			req.session.nom = rows[0]['nom_u'];
-			req.session.prenom = rows[0]['prenom_u'];
+			req.session.nom = rows[0]['nomAdmin'];
+			req.session.prenom = rows[0]['prenomAdmin'];
 			res.redirect('/mainAdmin');
 		}
 		else {
@@ -235,5 +235,13 @@ app.get('/gestionPlugs', function(req, res) {
 	//}
 });
 
+// GESTION consomation utilisateur -------------------------------------------------------------------------------------------------------
+app.get('/gestionCU', function(req, res) {
+	 if(!req.session.login) {
+	 res.redirect('/');
+	 } else {
+	res.render('gestionCU');
+	}
+});
 
 app.listen(1313); 
