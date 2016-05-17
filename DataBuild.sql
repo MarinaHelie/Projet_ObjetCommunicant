@@ -121,7 +121,7 @@ create table if not exists `temperature` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
--- Tabke structure for table `administrateur
+-- Table structure for table `administrateur`
 --
 
 CREATE TABLE IF NOT EXISTS `administration` (
@@ -132,6 +132,8 @@ CREATE TABLE IF NOT EXISTS `administration` (
 `mailAdmin` Varchar (50),
 PRIMARY key (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `administrateur` (`nomAdmin`, `prenomAdmin`, `mp`, `mailAdmin`) VALUES ('admin', 'test', '.', 'admin@ioc.com');
 
  GRANT SELECT,UPDATE,INSERT, DELETE ON ioc_domotique.* TO 'ioc'@'localhost' IDENTIFIED BY 'ioc' WITH MAX_QUERIES_PER_HOUR 100000 MAX_UPDATES_PER_HOUR 10000 MAX_CONNECTIONS_PER_HOUR 10000 MAX_USER_CONNECTIONS 10000;
  SET PASSWORD FOR 'ioc'@'localhost' = PASSWORD('ioc');

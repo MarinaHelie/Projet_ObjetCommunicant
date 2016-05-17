@@ -124,6 +124,7 @@ app.get('/logout', function (req, res) {
 
 	res.redirect('/main');
 
+
 });
 
 
@@ -134,7 +135,6 @@ app.get('/logoutAdmin', function (req, res) {
 	delete req.session.nom;
 	delete req.session.prenom;
 
-	res.redirect('/loginAdmin');
 });
 
 
@@ -180,6 +180,7 @@ app.post('/inscription', function (req, res) {
 });
 
 
+<<<<<<< HEAD
 // PANEL UTILISATEUR ----------------------------------------------------------------------------------------------------------
 app.get('/utilisateur', function(req, res) {
 	if(!req.session.login) {
@@ -193,8 +194,15 @@ app.get('/equipement', function(req, res) {
 	//if(!req.session.login) {
 	//	res.redirect('/');
 	//} else {
+=======
+// Gestion EQUIPEMENT ----------------------------------------------------------------------------------------------------------
+app.get('/gestionEU', function(req, res) {
+	if(!req.session.login) {
+		res.redirect('/');
+	} else {
+>>>>>>> 21b19aaf18a6473bc62c4bdd5516b74b25c9119f
 		res.render('equipement');
-	//}
+	}
 });
 
 
