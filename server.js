@@ -42,6 +42,7 @@ function getDevice()
 		{
 			var t=JSON.parse(http.responseText);
 			idDevice = t.data[0].id;
+			logger.info('Recuperation du device : ' , idDevice);
 		}
 	}
 	http.send(null);
@@ -63,7 +64,7 @@ function getTemperature(idDev, idSen)
 	http.send(null);
 };
 		
-function getSensors(id)
+function getSensors(id, callback)
 {
 	var adr = "https://api.sensit.io/v1/devices/" + id;
 	var http = new XMLHttpRequest();
@@ -73,7 +74,13 @@ function getSensors(id)
 	{
 		if(http.readyState==4)
 		{
-			var t = JSON.parse(http.responseText);
+				var t = http.responseText;
+				logger.info('t : ', t);
+				for(var i = 0; i < t.data.sensors.length; i++)
+				{
+					idSensorTemp[i].idHTTP = t.sensors[i].id;
+					logger.info('Recuperation de id sensor : ' , idSensorTemp[i]);
+				}
 		}
 	}
 	http.send(null);
@@ -82,6 +89,7 @@ function getSensors(id)
 // LOGGER START --------------------------------------------------------------------------------------------------------
 logger.info('server start');
 
+//getSensors(idDevice, getDevice());
 
 // MAIN ----------------------------------------------------------------------------------------------------------------
 app.get('/', function (req, res){
@@ -92,6 +100,7 @@ app.get('/', function (req, res){
     		logger.info('Binary State changed to: ', value);
     	});
 	});*/
+
 	res.redirect('/main');
 });
 
@@ -317,39 +326,6 @@ app.get('/gestionCU', function(req, res) {
 	 res.redirect('/');
 	 } else {
 	res.render('gestionCU');
-	}
-});
-
-// GESTION equipement administrateur -------------------------------------------------------------------------------------------------------
-app.get('/gestionEA', function(req, res) {
-	if(!req.session.login) {
-		res.redirect('/');
-	} else {
-		res.render('gestionEA');
-	}
-});
-
-// GESTION liste equipement administrateur -------------------------------------------------------------------------------------------------------
-app.get('/listeEA', function(req, res) {
-	if(!req.session.login) {
-		res.redirect('/');
-	} else {
-		var connection = mysql.createConnection({
-			host: 'localhost',
-			user: 'ioc',
-			password: 'ioc',
-			database: 'ioc_domotique'
-		});
-		connection.connect();
-		connection.query("SELECT u.nom_u, u.prenom_u, e.libelle, e.numero_serie, e.marque FROM equipement e, user u where u.id_u=e.id_u ;", function (err, rows, fields) {
-			if (!err) {
-				res.render('listeEA',{jointure : rows});
-			}
-			else
-			{
-				res.send(err);
-			}
-		});
 	}
 });
 
