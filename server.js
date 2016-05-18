@@ -27,54 +27,73 @@ app.use(session({secret: 'cestunsecretoupas'})); // session secret
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
 // Utilitaire Température-----------------------------------------------------------------------------------------------
-var idDevice;
-var idSensorTemp = {};
-
+var token = "iPt5AYfkmCNrvIN1wXzU0Bpw3uXrcfWttfQvALUwqSuser5NDnsPMdzaJr58Wrgn";
 function getDevice() {
+
     var adr = "https://api.sensit.io/v1/devices";
-    var http = new XMLHttpRequest();
-    http.open("GET", adr, true);
-    http.setRequestHeader("Authorization", "Bearer " + token);
-    http.onreadystatechange = function () {
-        if (http.readyState == 4) {
-            var t = JSON.parse(http.responseText);
+    var idDevice = 0;
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", adr, true);
+
+    xhttp.setRequestHeader("Authorization", "Bearer "+token);
+
+    xhttp.onreadystatechange = function() {
+        if(xhttp.readyState == 4) {
+            var t = JSON.parse(xhttp.responseText);
             idDevice = t.data[0].id;
             logger.info('Recuperation du device : ', idDevice);
+            getSensors(idDevice);
         }
-    }
-    http.send(null);
-};
+    };
+    xhttp.send();
+}
 
-function getTemperature(idDev, idSen) {
-    var adr = "https://api.sensit.io/v1/devices/" + idDev + "/sensors/" + idSen;
-    var http = new XMLHttpRequest();
-    http.open("GET", adr, true);
-    http.setRequestHeader("Authorization", "Bearer " + token);
-    http.onreadystatechange = function () {
-        if (http.readyState == 4) {
-            var t = JSON.parse(http.responseText);
-        }
-    }
-    http.send(null);
-};
+function getSensors(idDevice) {
+    var adrDevice = "https://api.sensit.io/v1/devices/"+idDevice;
+    var idSensor = 0;
+    var xhttp = new XMLHttpRequest();
 
-function getSensors(id, callback) {
-    var adr = "https://api.sensit.io/v1/devices/" + id;
-    var http = new XMLHttpRequest();
-    http.open("GET", adr, true);
-    http.setRequestHeader("Authorization", "Bearer " + token);
-    http.onreadystatechange = function () {
-        if (http.readyState == 4) {
-            var t = http.responseText;
-            logger.info('t : ', t);
-            for (var i = 0; i < t.data.sensors.length; i++) {
-                idSensorTemp[i].idHTTP = t.sensors[i].id;
-                logger.info('Recuperation de id sensor : ', idSensorTemp[i]);
+    xhttp.open("GET", adrDevice, true);
+
+    xhttp.setRequestHeader("Authorization", "Bearer "+token);
+
+    xhttp.onreadystatechange = function() {
+        if(xhttp.readyState == 4) {
+            var t = JSON.parse(xhttp.responseText);
+
+            // PAS 0 MAIS NOMBRE DE SENSORS EN BASE faire FOR
+            // FAIRE CORRESPONDRE SENSOR 0 = Premier de la base, SENSOR 1 = 2eme de la base
+            for(var j = 0; j < t.data.sensors.length; j++) {
+                idSensor = t.data.sensors[j].id;
+                logger.info('Recuperation de id sensor : ', idSensor);
+                getTemperature(idDevice, idSensor);
             }
         }
-    }
-    http.send(null);
-};
+    };
+    xhttp.send();
+}
+
+function getTemperature(idDevice, idSensor) {
+    var adrSensor = "https://api.sensit.io/v1/devices/" + idDevice + "/sensors/" + idSensor;
+    var xhttp = new XMLHttpRequest();
+    var temperature;
+
+    xhttp.open("GET", adrSensor, true);
+    xhttp.setRequestHeader("Authorization", "Bearer " + token);
+
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4) {
+            var t = JSON.parse(xhttp.responseText);
+            for(var i = 0; i < t.data.history.length; i++) {
+                temperature = t.data.history[i].data;
+                logger.info("temperature "+i+" = "+temperature);
+            }
+
+        }
+    };
+    xhttp.send();
+}
 
 // LOGGER START --------------------------------------------------------------------------------------------------------
 logger.info('server start');
@@ -91,6 +110,7 @@ app.get('/', function (req, res) {
      });
      });*/
 
+    getDevice();
     res.redirect('/main');
 });
 
@@ -129,6 +149,7 @@ app.post('/login', function (req, res) {
         else {
             res.redirect('/login');
         }
+        connection.end();
     });
 });
 
@@ -163,6 +184,7 @@ app.post('/loginAdmin', function (req, res) {
         else {
             res.redirect('/loginAdmin');
         }
+        connection.end();
     });
 });
 
@@ -196,7 +218,7 @@ app.get('/inscription', function (req, res) {
 });
 
 app.post('/inscription', function (req, res) {
-    var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+    var connection = mysql.createConnection({
         host: 'localhost',
         user: 'ioc',
         password: 'ioc',
@@ -273,6 +295,7 @@ app.get('/listeEU', function (req, res) {
                 res.send(err);
             }
         });
+        connection.end();
     }
 });
 
@@ -298,6 +321,7 @@ app.get('/supprEU', function(req, res) {
 				res.send(err);
 			}
 		});
+        connection.end();
 	}
 });
 
@@ -317,6 +341,7 @@ app.post('/supprEU', function(req, res) {
 		{
 			res.send(err);
 		}
+        connection.end();
 	});
 });
 
@@ -442,6 +467,7 @@ app.get('/listeEA', function (req, res) {
             else {
                 res.send(err);
             }
+            connection.end();
         });
     }
 });
@@ -459,6 +485,7 @@ app.get('/ajoutEA', function (req, res) {
         if (!err) {
             res.render('ajoutEA', {query: req.query, jointure: rows});
         }
+        connection.end();
     });
 });
 
@@ -528,7 +555,7 @@ app.get('/modifEA', function (req, res) {
 			{
 				res.send (err);
 			}
-
+            connection.end();
         });
     }
 });
@@ -644,7 +671,7 @@ app.get('/suppEA', function (req, res) {
 			{
 				res.send (err);
 			}
-
+            connection.end();
 		});
 	}
 });
