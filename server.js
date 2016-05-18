@@ -931,4 +931,64 @@ app.post('/ajoutRA', function (req, res) {
 	});
 });
 
+// GESTION modification d' equipement administrateur -------------------------------------------------------------------
+
+app.get('/modifRA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("select * from reference  ;", function (err, rows, fields) {
+			if (!err) {
+				res.render('modifRA', {query: req.query, reference: rows});
+			}
+			else
+			{
+				res.send (err);
+			}
+
+		});
+	}
+});
+app.post('/modifRA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	logger.info("donnee equipement :", req.body.id_ref);
+	var param = {
+		type_ref : req.body.type_ref,
+		conso_ref_min : req.body.conso_ref_min,
+		conso_ref_max : req.body.conso_ref_max,
+		prix_ref_min : req.body.prix_ref_min,
+		prix_ref_max : req.body.prix_ref_max,
+		prix_wat: req.body.prix_wat,
+		id_ref : req.body.id_ref
+	};
+
+	connection.connect();
+	connection.query("UPDATE reference SET type_ref = '"+req.body.type_ref+"', conso_ref_min='"+req.body.conso_ref_min+"', conso_ref_max ='"+req.body.conso_ref_max+"', prix_ref_min ='"+req.body.prix_ref_min +"' , prix_ref_min='"+req.body.prix_ref_min+"', prix_ref_max='"+req.body.prix_ref_max+"' , prix_wat ='"+req.body.prix_wat +"' WHERE id_ref='"+req.body.id_ref + "' ;", function(err, result) {
+
+		if (!err) {
+
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeRA');
+
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/modifRA');
+		}
+		connection.end();
+	});
+});
+
 app.listen(1313); 
