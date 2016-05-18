@@ -470,15 +470,24 @@ app.post('/detailleCU', function (req, res) {
 	    password: 'ioc',
 	    database: 'ioc_domotique'
 	});
+	logger.info(req.body.equipements);
 	connection.connect();
-	connection.query("select * from consomation, equipement where equipement.id_u=consomation.id_u and equipement.id_e=consomation.id_e and consomation.id_u='" + req.session.id_user + "' AND consomation.id_e = '" + req.body.id_e +"';", function (err, rows, fields) {
-	    if (!err) {
-	        res.render('detailleCU', {equipements:req.body.equipements, consomations : rows});
-	    }
-	    else {
-	        res.send(err);
-	    }
-	});
+	connection.query("select * from equipement where id_u='" + req.session.id_user +"';", function (err1, rows1, fields) {
+            if (!err1) {
+                connection.query("select * from consomation, equipement where equipement.id_u=consomation.id_u and equipement.id_e=consomation.id_e and consomation.id_u='" + req.session.id_user + "' AND consomation.id_e = '" + req.body.id_e +"';", function (err2, rows2, fields) {
+                    if (!err2) {
+                        res.render('detailleCU', {equipements:rows1, consomations : rows2});
+                    }
+                    else {
+                        res.send(err2);
+                    }
+                });
+            }
+            else {
+                res.send(err1);
+            }
+        });
+	
 });
 
 // GESTION equipement administrateur -----------------------------------------------------------------------------------
