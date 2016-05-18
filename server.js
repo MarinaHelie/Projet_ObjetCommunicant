@@ -462,7 +462,8 @@ app.post('/modifEA', function (req, res) {
     });
 });
 
-app.post('/modifU', function (req, res) {
+// GESTION modification de profil user -------------------------------------------------------------------
+app.get('/modifU', function (req, res) {
     if (!req.session.login) {
         res.redirect('/');
     } else {
