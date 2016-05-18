@@ -187,7 +187,7 @@ app.get('/utilisateur', function(req, res) {
 	if(!req.session.login) {
 		res.redirect('/main');
 	} else {
-	res.render('utilisateur');
+	res.render('utilisateur',{nom:req.session.nom, prenom:req.session.prenom});
 	}
 });
 
