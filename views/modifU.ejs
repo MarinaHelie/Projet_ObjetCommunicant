@@ -1,0 +1,62 @@
+<% var title = 'Modification utilisateur' %>
+<% include head %>
+<body>
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p>
+                            Modification du profil utilisateur
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Modifier mon profil</h3>
+                            <p></p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:greenyellow"><i class="fa fa-plus"></i></span><span style="color:#2b669a"><i class="fa fa-user"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="/utilisateur" method="post" class="login-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Nom</label>
+                                <input type="text" value="" name="nom" placeholder="<%=nom%>" class="form-username form-control" id="nom">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Prénom</label>
+                                <input type="text" value="<%=prenom%>" name="prenom" placeholder="Entrez votre prénom" class="form-username form-control" id="prenom">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Mot de passe</label>
+                                <input type="password" name="mdp" placeholder="Entrez le mot de passe" class="form-username form-control" id="mdp">
+                            </div>
+
+                            <br /><button type="submit" class="btn">Modifier le profil !</button>
+                        </form>
+                        <br /> <a  href="/utilisateur" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+
+<% include foot %>

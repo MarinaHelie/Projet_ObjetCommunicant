@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="/modifEA" method="post" class="login-form">
+                        <form role="form" action="/suppEA" method="post" class="login-form">
                             <div class="dropdown">
                                 <select  class="form-control" id="id_u" name="id_u" >
                                     <% for(var i = 0; i < utilisateur.length; i++) { %>
@@ -42,20 +42,8 @@
                                     <% } %>
                                 </select> <br />
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-username">Libelle</label>
-                                <input type="text" name="libelle" placeholder="Entrer le nom de l'équipement" class="form-username form-control" id="libelle">
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-username">Numero de série</label>
-                                <input type="text" name="numero_serie" placeholder="Entrer le numero de série de l'equipement" class="form-username form-control" id="numero_serie">
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-username">Marque</label>
-                                <input type="text" name="marque" placeholder="Entrer la marque l'equipement" class="form-username form-control" id="marque">
-                            </div>
 
-                            <br /><button type="submit" class="btn">Modifier l'équipement !</button>
+                            <br /><button type="submit" class="btn">Supprimer équipement !</button>
                         </form>
                         <br /> <a  href="/gestionEA" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
                     </div>
