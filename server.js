@@ -643,4 +643,27 @@ app.get('/gestionUA', function (req, res) {
 	}
 });
 
+// GESTION liste equipement administrateur -----------------------------------------------------------------------------
+app.get('/listeUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("SELECT * FROM  user u ;", function (err, rows, fields) {
+			if (!err) {
+				res.render('listeUA', {listeutilisateur: rows});
+			}
+			else {
+				res.send(err);
+			}
+		});
+	}
+});
+
 app.listen(1313); 
