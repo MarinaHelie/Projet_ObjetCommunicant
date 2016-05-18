@@ -1061,4 +1061,52 @@ app.post('/kwhRA', function(req, res){
 	});
 });
 
+app.get('/suppRA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("select * from reference   ;", function (err, rows, fields) {
+			res.render('suppRA', {query: req.query, reference: rows});
+
+		});
+	}
+});
+
+
+app.post('/suppRA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	logger.info("donnee equipement :", req.body.numero_serie);
+	var param = {
+		id_ref : req.body.id_ref
+
+	};
+	connection.connect();
+	connection.query("DELETE FROM reference WHERE id_ref='"+req.body.id_ref + "';", function(err, result) {
+
+		if (!err) {
+
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeRA');
+
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/suppRA');
+		}
+		connection.end();
+	});
+});
+
 app.listen(1313); 

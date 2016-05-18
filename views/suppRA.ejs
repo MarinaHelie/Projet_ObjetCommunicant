@@ -1,0 +1,57 @@
+<% var title = 'Inscription' %>
+<% include head %>
+<body>
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p>
+                            Supression equipement de réference
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Supprimer un profil de consomation</h3>
+                            <p>Entrez l'ensemble des données afin de modifier un profil de consomation:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:greenyellow"><i class="fa fa-plus"></i></span><span style="color:#2b669a"><i class="fa fa-user"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="/suppRA" method="post" class="login-form">
+                            <div class="dropdown">
+                                <select  class="form-control" id="id_ref" name="id_ref" >
+                                    <% for(var i = 0; i < reference.length; i++) { %>
+                                    <br /> <option value="<%= reference[i].id_ref %>"> <%= reference[i].id_ref %> <%= reference[i].type_ref %>  </option><br />
+                                    <% } %>
+                                </select> <br />
+                            </div>
+
+                            <button type="submit" class="btn">Supprimer le profile !</button>
+                        </form>
+                        <br /> <a  href="/gestionRA" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+
+<% include foot %>
