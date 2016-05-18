@@ -824,5 +824,14 @@ app.post('/suppUA', function (req, res) {
 	});
 });
 
+// GESTION profile de consomation -----------------------------------------------------------------------------------
+app.get('/gestionRA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		res.render('gestionRA');
+	}
+});
+
 
 app.listen(1313); 
