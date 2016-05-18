@@ -391,6 +391,28 @@ app.post('/listeCU', function(req, res){
 	});
 });
 
+	// Conso Equipement de l'utilisateur
+app.get('/consoEU', function (req, res) {
+    if (!req.session.login) {
+        res.redirect('/');
+    } else {
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'ioc',
+            password: 'ioc',
+            database: 'ioc_domotique'
+        });
+        connection.connect();
+        connection.query("select e.libelle, e.numero_serie, Sum(c.consomation) as value from equipement e, consomation c where e.id_e=c.id_e AND e.id_u='" + req.session.id_user +"' group by e.id_e, e.id_u;", function (err, rows, fields) {
+            if (!err) {
+                res.render('consoEU', {consoEquip : rows});
+            }
+            else {
+                res.send(err);
+            }
+        });
+    }
+});
 
 // GESTION equipement administrateur -----------------------------------------------------------------------------------
 app.get('/gestionEA', function (req, res) {
