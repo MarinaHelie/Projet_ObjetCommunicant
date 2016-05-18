@@ -1,0 +1,55 @@
+<% var title = 'Formulaire login administrateur' %>
+<% include head %>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p class="bg-danger">
+                            Votre espace dédié pour gérer l'ensemble du tableau de référence
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Espace <b>gestion du  tableau de référence </b>  </h3>
+                            <p>Gerer l'ensemble des données de référence</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:darkred"> <i class="fa fa-desktop" aria-hidden="true"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+
+                        <a href="/listeRA" class="btn btn-block btn-info"><span ><i class="fa fa-calculator" aria-hidden="true"></i></span>  Liste des profils de consomation </a> <br />
+                        <a href="/ajoutRA" class="btn btn-block btn-success"><span class="glyphicon glyphicon-plus"></span> Ajouter un profil de consomation   </a> <br />
+                        <a href="/modifRA" class="btn btn-block btn-warning"><span class="glyphicon glyphicon-pencil"></span> Modifier un profil de consomation   </a> <br />
+                        <a href="/suppRA" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-pencil"></span> Modifier le prix du KWh   </a> <br />
+                        <a href="/suppRA" class="btn btn-block btn-danger"><span class="glyphicon glyphicon-remove"></span> Supprimer un profil de consomation   </a> <br />
+                        <br /><a  href="/admin" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+<% include foot%>

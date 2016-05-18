@@ -1,0 +1,68 @@
+<% var title = 'Liste Equipement' %>
+<% include head %>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p class="bg-danger">
+                            Votre espace dédié pour gérer l'ensemble de vos équipements de chez vous
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Liste <b>Utilisateur</b>  </h3>
+                            <p>Gerer l'ensemble des utilisateur dans votre espace</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:darkred"> <i class="fa fa-desktop" aria-hidden="true"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Consomation min</th>
+                                <th>Consomation max</th>
+                                <th>Prix min</th>
+                                <th>Prix max</th>
+                                <th>Prix du KWh</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i = 0; i < listereference.length; i++) { %>
+                            <tr>
+                                <td><%= listereference[i].id_ref %></td>
+                                <td><%= listereference[i].type_ref %></td>
+                                <td><%= listereference[i].conso_ref_min %></td>
+                                <td> <%= listereference[i].conso_ref_max %></td>
+                                <td> <%= listereference[i].prix_ref_min %></td>
+                                <td> <%= listereference[i].prix_ref_max %></td>
+                                <td> <%= listereference[i].prix_what %></td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                        <br /><a  href="/gestionRA" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%include foot%>

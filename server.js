@@ -855,5 +855,36 @@ app.post('/suppUA', function (req, res) {
 	});
 });
 
+// GESTION profile de consomation -----------------------------------------------------------------------------------
+app.get('/gestionRA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		res.render('gestionRA');
+	}
+});
+
+// GESTION liste reference administrateur -----------------------------------------------------------------------------
+app.get('/listeRA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("SELECT * FROM reference;", function (err, rows, fields) {
+			if (!err) {
+				res.render('listeRA', {listereference: rows});
+			}
+			else {
+				res.send(err);
+			}
+		});
+	}
+});
 
 app.listen(1313); 
