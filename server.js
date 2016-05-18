@@ -302,7 +302,7 @@ app.get('/listeEU', function (req, res) {
                 res.render('listeEU', {equipements: rows});
             }
             else {
-                res.send(err);
+                res.render('listeEU', {equipements: []});
             }
         });
         connection.end();
@@ -328,7 +328,7 @@ app.get('/supprEU', function(req, res) {
 			}
 			else
 			{
-				res.send(err);
+				res.render('supprEU',{equipements : []});
 			}
 		});
         connection.end();
@@ -443,7 +443,7 @@ app.get('/consoEU', function (req, res) {
                 res.render('consoEU', {consoEquip : rows});
             }
             else {
-                res.send(err);
+                res.render('consoEU', {consoEquip : []});
             }
         });
     }
@@ -466,7 +466,7 @@ app.get('/detailleCU', function (req, res) {
                 res.render('detailleCU', {equipements:rows, consomations : []});
             }
             else {
-                res.send(err);
+                res.render('detailleCU', {equipements:[], consomations : []});
             }
         });
     }
@@ -488,12 +488,12 @@ app.post('/detailleCU', function (req, res) {
                         res.render('detailleCU', {equipements:rows1, consomations : rows2});
                     }
                     else {
-                        res.send(err2);
+                        res.render('detailleCU', {equipements:rows1, consomations : []});
                     }
                 });
             }
             else {
-                res.send(err1);
+                res.render('detailleCU', {equipements:[], consomations : []});
             }
         });
 	
@@ -525,7 +525,7 @@ app.get('/listeEA', function (req, res) {
                 res.render('listeEA', {jointure: rows});
             }
             else {
-                res.send(err);
+                res.render('listeEA', {jointure: []});
             }
             connection.end();
         });
@@ -607,13 +607,13 @@ app.get('/modifEA', function (req, res) {
 					}
 					else
 					{
-						res.send (err);
+						res.render('modifEA', {query: req.query, equipement: rows, utilisateur: []});
 					}
 				});
             }
 			else
 			{
-				res.send (err);
+				res.render('modifEA', {query: req.query, equipement: [], utilisateur: []});
 			}
             connection.end();
         });
@@ -723,13 +723,13 @@ app.get('/suppEA', function (req, res) {
 					}
 					else
 					{
-						res.send (err);
+						res.render('suppEA', {query: req.query, equipement: rows, utilisateur: []});
 					}
 				});
 			}
 			else
 			{
-				res.send (err);
+				res.render('suppEA', {query: req.query, equipement: [], utilisateur: []});
 			}
             connection.end();
 		});
@@ -800,7 +800,7 @@ app.get('/listeUA', function (req, res) {
 				res.render('listeUA', {listeutilisateur: rows});
 			}
 			else {
-				res.send(err);
+				res.render('listeUA', {listeutilisateur: []});
 			}
 		});
 	}
@@ -864,7 +864,7 @@ app.get('/modifUA', function (req, res) {
 			}
 			else
 			{
-				res.send (err);
+				res.render('modifUA', {query: req.query, utilisateur: []});
 			}
 
 		});
@@ -990,7 +990,7 @@ app.get('/listeRA', function (req, res) {
 				res.render('listeRA', {listereference: rows});
 			}
 			else {
-				res.send(err);
+				res.render('listeRA', {listereference: []});
 			}
 		});
 	}
@@ -1059,7 +1059,7 @@ app.get('/modifRA', function (req, res) {
 			}
 			else
 			{
-				res.send (err);
+				res.render('modifRA', {query: req.query, reference: []});
 			}
 
 		});
@@ -1120,7 +1120,7 @@ app.get('/kwhRA', function (req, res) {
 				res.render('kwhRA', {query: req.query, prixref: rows});
 			}
 			else {
-				res.send(err);
+				res.render('kwhRA', {query: req.query, prixref: []});
 			}
 		});
 	}
