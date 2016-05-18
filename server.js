@@ -766,4 +766,63 @@ app.post('/modifUA', function (req, res) {
 	});
 });
 
+// GESTION suppression utilisateur administrateur -------------------------------------------------------------------
+
+app.get('/suppUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("select * from user   ;", function (err, rows, fields) {
+			res.render('suppUA', {query: req.query, utilisateur: rows});
+
+		});
+	}
+});
+
+
+app.post('/suppUA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	logger.info("donnee equipement :", req.body.numero_serie);
+	var param = {
+		libelle: req.body.libelle,
+		numero_serie: req.body.numero_serie,
+		marque: req.body.marque
+	};
+	var condition = {
+
+		id_u: req.body.id_u
+	};
+	var condition2 = {
+		id_e: req.body.id_e
+	};
+	connection.connect();
+	connection.query("DELETE FROM user WHERE id_u='"+req.body.id_u + "';", function(err, result) {
+
+		if (!err) {
+
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeUA');
+
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/suppUA');
+		}
+		connection.end();
+	});
+});
+
+
 app.listen(1313); 
