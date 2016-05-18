@@ -348,6 +348,29 @@ app.get('/listeEU', function (req, res) {
     }
 });
 
+	// Affichage température ----------------------------------------------------------------------------------------
+app.get('/temp', function (req, res) {
+    if (!req.session.login) {
+        res.redirect('/');
+    } else {
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'ioc',
+            password: 'ioc',
+            database: 'ioc_domotique'
+        });
+        connection.connect();
+        connection.query("SELECT * FROM temperature WHERE id_e = ?", req.query.id_e, function (err, rows, fields) {
+            if (!err) {
+                res.render('temp', {temperatures: rows});
+            }
+            else {
+                res.redirect('listeEU');
+            }
+        });
+        connection.end();
+    }
+});
 
 	// Suppression Equipement ------------------------------------------------------------------------------------------
 app.get('/supprEU', function(req, res) {

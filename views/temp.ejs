@@ -1,4 +1,4 @@
-<% var title = 'Liste Equipement' %>
+<% var title = 'Temperature Relevée' %>
 <% include head %>
 
 <!-- Top content -->
@@ -20,7 +20,7 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Liste <b>équipement</b>  </h3>
+                            <h3>Température <b>relevé</b>  </h3>
                             <p>Gerer l'ensemble de vos équipement dans votre espace</p>
                         </div>
                         <div class="form-top-right">
@@ -31,22 +31,30 @@
                         <table class="table table-striped">
                             <thead>
                                  <tr>
-                                    <th>libelle</th>
-                                    <th>numero de série</th>
-                                    <th>marque</th>
+                                    <th>date_debut</th>
+                                    <th>date_fin</th>
+                                    <th>heureDebut</th>
+                                    <th>heureFin</th>
+                                    <th>temperature_actuel</th>
+                                    <th>temperature_min</th>
+                                    <th>temperature_max</th>
                                  </tr>
                             </thead>
                             <tbody>
-                            <% for(var i = 0; i < equipements.length; i++) { %>
+                            <% for(var i = 0; i < temperatures.length; i++) { %>
                                 <tr>
-                                    <td><a href="/temp?id_e=<%= equipements[i].id_e %>"><%= equipements[i].libelle %></a></td>
-                                    <td><%= equipements[i].numero_serie %></td>
-                                    <td><%= equipements[i].marque %></td>
+                                    <td><%= temperature[i].date_debut %></td>
+                                    <td><%= temperatures[i].date_fin %></td>
+                                    <td><%= temperatures[i].heureDebut %></td>
+                                    <td><%= temperatures[i].heureFin %></td>
+                                    <td><%= temperatures[i].temperature_actuel %></td>
+                                    <td><%= temperatures[i].temperature_min %></td>
+                                    <td><%= temperatures[i].temperature_max %></td>
                                 </tr>
                             <% } %>
                             </tbody>
                         </table>
-                        <br /><a  href="/gestionEU" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+                        <br /><a  href="/listeEU" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
 
                     </div>
 
