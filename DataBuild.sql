@@ -86,6 +86,7 @@ CREATE TABLE IF NOT  EXISTS `equipement` (
 INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('sensor temperature 1', 'xxxx1', 'sensor',1);
 INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('sensor temperature 2', 'xxxx2', 'sensor',1);
 INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('sensor temperature 2', 'xxxx3', 'sensor',1);
+INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_ref`, `id_u`) VALUES ('ampoule', '213548', 'lampi', 1, 1);
 
 --
 -- Table structure for table `consomation`
@@ -94,16 +95,25 @@ INSERT INTO `equipement` (`libelle`, `numero_serie`, `marque`, `id_u`) VALUES ('
 create table if not exists `consomation` (
 	`id_u`int(11) not null,
     `id_e`int(11) not null,
-    `date_debut` date,
-    `date_fin`date,
-    `heureDebut` time,
-    `heureFin` time,
-    `consomation`int(12),
-    `prix_conso` float,
-    primary key (`id_u`,`id_e`,`date_debut`),
+    `date_debut` date not null,
+    `date_fin`date null,
+    `heureDebut` time not null,
+    `heureFin` time null,
+    `consomation`int(12)not null,
+    `prix_conso` float null,
+    primary key (`id_u`,`id_e`,`date_debut`, `heureDebut`),
     CONSTRAINT `conso_user` FOREIGN KEY (`id_u`) REFERENCES `user` (`id_u`) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT `conso_plug` FOREIGN KEY (`id_e`) REFERENCES `equipement` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `date_fin`, `heureDebut`, `heureFin`, `consomation`)
+VALUES (1, 4, '2016-05-18', '2016-05-18', '08:00:00', '09:00:00', 13);
+INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `date_fin`, `heureDebut`, `heureFin`, `consomation`)
+VALUES (1, 4, '2016-05-18', '2016-05-18', '10:30:00', '11:00:00', 7);
+INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `date_fin`, `heureDebut`, `heureFin`, `consomation`)
+VALUES (1, 4, '2016-05-18', '2016-05-18', '14:00:00', '14:20:00', 6);
+INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `heureDebut`, `consomation`)
+VALUES (1, 4, '2016-05-18', '19:00:00', 7);
 
 --
 -- Table structure for table `temperature`

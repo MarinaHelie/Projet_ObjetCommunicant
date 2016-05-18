@@ -339,24 +339,36 @@ app.get('/gestionUser', function (req, res) {
     }
 });
 
-
-// GESTION PLUGS -------------------------------------------------------------------------------------------------------
-app.get('/gestionPlugs', function (req, res) {
-    /* RETIRER COMMENTAIRE LORSQUE LE LOGIN SERA FONCTIONNELLE
-     if(!req.session.login) {
-     res.redirect('/');
-     } else {
-     */
-    res.render('gestionPlugs');
-    //}
-});
-
 // GESTION consomation utilisateur -------------------------------------------------------------------------------------
 app.get('/gestionCU', function (req, res) {
     if (!req.session.login) {
         res.redirect('/');
     } else {
         res.render('gestionCU');
+    }
+});
+
+	// Consommation total de l'utilisateur
+app.get('/listeCU', function (req, res) {
+    if (!req.session.login) {
+        res.redirect('/');
+    } else {
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'ioc',
+            password: 'ioc',
+            database: 'ioc_domotique'
+        });
+        connection.connect();
+        connection.query("SELECT Sum(consomation) FROM consomation where id_u = '" + req.session.id_user + "';", function (err, rows, fields) {
+            if (!err) {
+            	logger.info("conso total :", rows);
+                res.render('listeCU', {consoTotal: rows});
+            }
+            else {
+                res.send(err);
+            }
+        });
     }
 });
 
