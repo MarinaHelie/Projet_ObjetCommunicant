@@ -107,6 +107,8 @@ create table if not exists `consomation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `date_fin`, `heureDebut`, `heureFin`, `consomation`)
+VALUES (1, 4, '2016-05-16', '2016-05-17', '08:00:00', '07:00:00', 40);
+INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `date_fin`, `heureDebut`, `heureFin`, `consomation`)
 VALUES (1, 4, '2016-05-18', '2016-05-18', '08:00:00', '09:00:00', 13);
 INSERT INTO `consomation` (`id_u`, `id_e`, `date_debut`, `date_fin`, `heureDebut`, `heureFin`, `consomation`)
 VALUES (1, 4, '2016-05-18', '2016-05-18', '10:30:00', '11:00:00', 7);
