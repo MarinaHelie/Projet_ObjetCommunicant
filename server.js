@@ -553,4 +553,13 @@ app.post('/suppEA', function (req, res) {
 	});
 });
 
+// GESTION utilisateur administrateur -----------------------------------------------------------------------------------
+app.get('/gestionUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		res.render('gestionUA');
+	}
+});
+
 app.listen(1313); 
