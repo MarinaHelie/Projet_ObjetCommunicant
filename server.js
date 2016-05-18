@@ -426,9 +426,6 @@ app.get('/modifEA', function (req, res) {
 						res.send (err);
 					}
 				});
-
-
-                res.render('modifEA', {query: req.query, equipement: rows});
             }
 			else
 			{
@@ -445,15 +442,22 @@ app.post('/modifEA', function (req, res) {
         password: 'ioc',
         database: 'ioc_domotique'
     });
+	logger.info("donnee equipement :", req.body.numero_serie);
     var param = {
         libelle: req.body.libelle,
         numero_serie: req.body.numero_serie,
-        marque: req.body.marque,
-        id_u: req.body.id_u,
-        id_e: req.body.id_e
+        marque: req.body.marque
     };
+	var condition = {
+
+		id_u: req.body.id_u
+	};
+	var condition2 = {
+		id_e: req.body.id_e
+	};
     connection.connect();
-	connection.query('UPDATE equipement SET ? WHERE id_u = ? and id_e =?', [{ libelle:req.body.libelle  },{numero_serie: req.body.numero_serie},{marque:req.body.marque}, id_u, id_e]), function(err, result) {
+	connection.query("UPDATE equipement SET libelle = '"+req.body.libelle+"', numero_serie='"+req.body.numero_serie+"', marque ='"+req.body.marque+"' WHERE id_u='"+req.body.id_u + "' AND id_e =' "+req.body.id_e+"' ;", function(err, result) {
+
         if (!err) {
 
          logger.info("donnée equipement :", param);
@@ -465,7 +469,7 @@ app.post('/modifEA', function (req, res) {
             res.redirect('/modifEA');
         }
         connection.end();
-    };
+    });
 });
 
 // GESTION modification de profil user -------------------------------------------------------------------
