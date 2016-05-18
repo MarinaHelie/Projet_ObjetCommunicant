@@ -1,0 +1,64 @@
+<% var title = 'Consommation utilisateur' %>
+<% include head %>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p class="bg-danger">
+                            Votre espace dédié pour gérer l'ensemble de vos équipements de chez vous
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Espace <b>Administrateur</b>  </h3>
+                            <p>Gerer l'ensemble de vos équipement dans votre espace</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:darkgreen"> <i class="fa fa-desktop" aria-hidden="true"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+
+                        <p>Prix actuel du KWh: <%= prixref[0].prix_wat %> KWh/euros</p>
+
+                        <form role="form" action="/kwhRA" method="post" class="login-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">prix du wat</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-bolt" aria-hidden="true"></i>/€</div>
+                                    <input type="text" class="form-control" id="prix_wat" name="prix_wat" placeholder="prix reference du wat">
+                                    <div class="input-group-addon">KWh/euros</div>
+                                </div>
+                            </div>
+                            <br /><button type="submit" class="btn">Modifier prix du wat</button>
+                        </form>
+
+                        <br /><a  href="/gestionRA" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+<% include foot%>

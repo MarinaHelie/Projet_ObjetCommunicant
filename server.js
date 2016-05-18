@@ -1013,4 +1013,52 @@ app.post('/modifRA', function (req, res) {
 	});
 });
 
+// GESTION modification kwh administrateur -------------------------------------------------------------------
+
+app.get('/kwhRA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+
+
+		connection.connect();
+		connection.query("select distinct prix_wat from reference;", function (err, rows, fields) {
+			if (!err) {
+				res.render('kwhRA', {query: req.query, prixref: rows});
+			}
+			else {
+				res.send(err);
+			}
+		});
+	}
+});
+
+app.post('/kwhRA', function(req, res){
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	var param = {
+		prix_wat : req.body.prix_wat
+	};
+
+	connection.connect();
+	connection.query("UPDATE reference set prix_wat ='"+req.body.prix_wat+"';", function (err, rows, fields) {
+		if (!err) {
+			res.redirect('/listeRA');
+		}
+		else {
+			res.send(err);
+		}
+	});
+});
+
 app.listen(1313); 
