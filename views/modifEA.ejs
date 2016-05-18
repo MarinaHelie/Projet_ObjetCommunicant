@@ -30,17 +30,17 @@
                         <form role="form" action="/modifEA" method="post" class="login-form">
                             <div class="dropdown">
                                 <select  class="form-control" id="id_u" name="id_u" >
-                                    <% for(var i = 0; i < equipement.length; i++) { %>
-                                    <br /> <option value="<%= equipement[i].id_e%>"> <%= equipement[i].nom_u %> <%= equipement[i].prenom_u %>  </option><br />
+                                    <% for(var i = 0; i < utilisateur.length; i++) { %>
+                                    <br /> <option value="<%= utilisateur[i].id_u%>"> <%= utilisateur[i].nom_u %> <%= utilisateur[i].prenom_u %>  </option><br />
                                     <% } %>
-                                </select>
+                                </select> <br />
                             </div>
                             <div class="dropdown">
-                                <select  class="form-control" id="id_u" name="id_u" >
+                                <select  class="form-control" id="id_e" name="id_e" >
                                     <% for(var i = 0; i < equipement.length; i++) { %>
-                                    <br /> <option value="<%= equipement[i].id_u%>"> <%= equipement[i].id_u %>   </option><br />
+                                    <br /> <option value="<%= equipement[i].id_e%>"> <%= equipement[i].libelle %> <%= equipement[i].marque %>  </option><br />
                                     <% } %>
-                                </select>
+                                </select> <br />
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Libelle</label>
