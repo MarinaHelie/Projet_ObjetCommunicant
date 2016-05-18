@@ -320,4 +320,37 @@ app.get('/gestionCU', function(req, res) {
 	}
 });
 
+// GESTION equipement administrateur -------------------------------------------------------------------------------------------------------
+app.get('/gestionEA', function(req, res) {
+	if(!req.session.login) {
+		res.redirect('/');
+	} else {
+		res.render('gestionEA');
+	}
+});
+
+// GESTION liste equipement administrateur -------------------------------------------------------------------------------------------------------
+app.get('/listeEA', function(req, res) {
+	if(!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("SELECT u.nom_u, u.prenom_u, e.libelle, e.numero_serie, e.marque FROM equipement e, user u where u.id_u=e.id_u ;", function (err, rows, fields) {
+			if (!err) {
+				res.render('listeEA',{jointure : rows});
+			}
+			else
+			{
+				res.send(err);
+			}
+		});
+	}
+});
+
 app.listen(1313); 
