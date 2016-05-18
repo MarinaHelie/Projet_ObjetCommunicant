@@ -353,4 +353,52 @@ app.get('/listeEA', function(req, res) {
 	}
 });
 
+// GESTION ajout equipement administrateur -------------------------------------------------------------------------------------------------------
+app.get('/ajoutEA', function (req, res) {
+    var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+        host: 'localhost',
+        user: 'ioc',
+        password: 'ioc',
+        database: 'ioc_domotique'});
+    connection.connect();
+    connection.query("select * from user;" ,  function (err, rows, fields){
+        if (!err){
+            res.render('ajoutEA', {query: req.query, jointure :rows});
+        }
+    });
+});
+
+app.post('/ajoutEA', function (req, res) {
+    var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+        host: 'localhost',
+        user: 'ioc',
+        password: 'ioc',
+        database: 'ioc_domotique'
+    });
+    var param = {libelle: req.body.libelle, numero_serie: req.body.numero_serie, marque: req.body.marque , id_u: req.body.id_u};
+    connection.connect();
+    connection.query("SELECT count(*) AS nb FROM equipement WHERE numero_serie = ?", req.body.numero_serie, function (err, rows, fields) {
+        if (!err) {
+
+            if(rows[0]['nb'] == 0){
+                connection.query('INSERT INTO equipement SET ?', param, function(err, result) {
+                    if(!err){
+                        logger.info("donnée equipement :", param);
+                        res.redirect('/listeEA');
+                    } else {
+                        logger.info("erreur boulet :", err);
+                        res.redirect('/ajoutEA');
+                    }
+                });
+            }
+
+        } else {
+            logger.info("erreur encore boulet : ",err);
+            res.redirect('/ajoutEA');
+        }
+        connection.end();
+    });
+});
+
+
 app.listen(1313); 

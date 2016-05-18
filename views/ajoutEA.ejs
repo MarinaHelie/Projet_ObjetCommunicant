@@ -1,0 +1,69 @@
+<% var title = 'Inscription' %>
+<% include head %>
+<body>
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p>
+                            Inscription
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Ajouter un équipement</h3>
+                            <p>Entrez l'ensemble des données afin d'ajouter un equipement:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:greenyellow"><i class="fa fa-plus"></i></span><span style="color:#2b669a"><i class="fa fa-user"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="/ajoutEA" method="post" class="login-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Libelle</label>
+                                <input type="text" name="libelle" placeholder="Entrer le nom de l'équipement" class="form-username form-control" id="libelle">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Numero de série</label>
+                                <input type="text" name="numero_serie" placeholder="Entrer le numero de série de l'equipement" class="form-username form-control" id="numero_serie">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Marque</label>
+                                <input type="text" name="marque" placeholder="Entrer la marque l'equipement" class="form-username form-control" id="marque">
+                            </div>
+                            <div class="dropdown">
+                                <select  class="form-control" id="id_u" name="id_u" >
+                                    <% for(var i = 0; i < jointure.length; i++) { %>
+                                   <br /> <option value="<%= jointure[i].id_u%>"> <%= jointure[i].nom_u %> <%= jointure[i].prenom_u %>  </option><br />
+                                    <% } %>
+                                </select>
+                            </div>
+
+                            <br /><button type="submit" class="btn">Ajouter l'équipement !</button>
+                        </form>
+                        <br /> <a  href="/admin" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+
+<% include foot %>
