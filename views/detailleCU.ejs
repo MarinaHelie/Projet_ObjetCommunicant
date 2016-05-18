@@ -1,0 +1,78 @@
+<% var title = 'Consomation Détaillée' %>
+<% include head %>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p class="bg-danger">
+                            Votre espace dédié pour gérer l'ensemble de vos équipements de chez vous
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Consomation <b>détaillée</b>  </h3>
+                            <p>Gerer l'ensemble de vos équipement dans votre espace</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:darkgreen"> <i class="fa fa-desktop" aria-hidden="true"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="/detailleCU" method="post" class="login-form">
+                            <div class="form-group">
+                                    <div class="dropdown">
+                                        <select class="form-control" id="id_e" name="id_e" >
+                                        <% for(var i = 0; i < equipements.length; i++) { %>
+                                            <option value="<%= equipements[i].id_e%>"> <%= equipements[i].libelle %> <%= equipements[i].numero_serie %> </option>
+                                        <% } %>
+                                        </select>
+                                    </div>
+                            </div>
+                            <input type="HIDDEN" id="equipements" name="equipements" value=<%= equipements %>>
+                            <input type="submit" value="Afficher la conso détaillée" class="btn btn-warning btn-block">
+                        </form>
+                        <br/>
+                        <table class="table table-striped">
+                            <thead>
+                                 <tr>
+                                    <th>conso</th>
+                                    <th>date debut</th>
+                                    <th>date fin</th>
+                                    <th>heure debut</th>
+                                    <th>heure fin</th>
+                                 </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i = 0; i < consomations.length; i++) { %>
+                                <tr>
+                                    <td><%= consomations[i].consomation %></td>
+                                    <td><%= consomations[i].date_debut %></td>
+                                    <td><%= consomations[i].date_fin %></td>
+                                    <td><%= consomations[i].heureDebut %></td>
+                                    <td><%= consomations[i].heureFin %></td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                        <br /><a  href="/gestionCU" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%include foot%>

@@ -348,7 +348,7 @@ app.get('/gestionCU', function (req, res) {
     }
 });
 
-	// Consommation total de l'utilisateur
+	// Consommation total de l'utilisateur------------------------------------------------------------------------------
 app.get('/listeCU', function (req, res) {
     if (!req.session.login) {
         res.redirect('/');
@@ -391,7 +391,7 @@ app.post('/listeCU', function(req, res){
 	});
 });
 
-	// Conso Equipement de l'utilisateur
+	// Conso Equipement de l'utilisateur --------------------------------------------------------------------------------
 app.get('/consoEU', function (req, res) {
     if (!req.session.login) {
         res.redirect('/');
@@ -412,6 +412,47 @@ app.get('/consoEU', function (req, res) {
             }
         });
     }
+});
+
+	// Conso détaillé ----------------------------------------------------------------------------------------------------
+app.get('/detailleCU', function (req, res) {
+    if (!req.session.login) {
+        res.redirect('/');
+    } else {
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'ioc',
+            password: 'ioc',
+            database: 'ioc_domotique'
+        });
+        connection.connect();
+        connection.query("select * from equipement where id_u='" + req.session.id_user +"';", function (err, rows, fields) {
+            if (!err) {
+                res.render('detailleCU', {equipements:rows, consomations : []});
+            }
+            else {
+                res.send(err);
+            }
+        });
+    }
+});
+
+app.post('/detailleCU', function (req, res) {
+	var connection = mysql.createConnection({
+	    host: 'localhost',
+	    user: 'ioc',
+	    password: 'ioc',
+	    database: 'ioc_domotique'
+	});
+	connection.connect();
+	connection.query("select * from consomation, equipement where equipement.id_u=consomation.id_u and equipement.id_e=consomation.id_e and consomation.id_u='" + req.session.id_user + "' AND consomation.id_e = '" + req.body.id_e +"';", function (err, rows, fields) {
+	    if (!err) {
+	        res.render('detailleCU', {equipements:req.body.equipements, consomations : rows});
+	    }
+	    else {
+	        res.send(err);
+	    }
+	});
 });
 
 // GESTION equipement administrateur -----------------------------------------------------------------------------------
