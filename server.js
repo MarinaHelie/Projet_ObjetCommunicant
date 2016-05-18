@@ -521,8 +521,45 @@ app.get('/modifU', function (req, res) {
     if (!req.session.login) {
         res.redirect('/');
     } else {
-        res.render('modifU', {nom: req.session.nom, prenom: req.session.prenom});
+        res.render('modifU', {nom: req.session.nom, prenom: req.session.prenom, mdp: req.session.mdp});
     }
+});
+
+app.post('/modifU', function (req, res) {
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'ioc',
+        password: 'ioc',
+        database: 'ioc_domotique'
+    });
+    var param = {
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        mail: req.session.login,
+        mdp: req.body.mdp
+    };
+    connection.connect();
+    logger.info("SELECT");
+    connection.query("SELECT * FROM user WHERE mail_u = '" + param.mail + "'", function (err, rows, fields) {
+        if (!err) {
+            logger.info("UPDATE");
+            connection.query("UPDATE user SET nom_u = '" + param.nom + "', prenom_u='" + param.prenom + "' WHERE mail_u='" + param.mail + "' AND mp_u =' " + param.mdp + "' ;", function (err, result) {
+                if (!err) {
+                    logger.info("user update :", param);
+                    req.session.nom = param.nom;
+                    req.session.prenom = param.prenom;
+                    res.redirect('/utilisateur');
+                } else {
+                    logger.info("erreur lors de la mise a jour de l'utilisateur :", err);
+                    res.redirect('/modifU');
+                }
+            });
+        } else {
+            console.log("erreur l'utilisateur n'existe pas : ", err);
+            res.redirect('/modifU');
+        }
+        connection.end();
+    });
 });
 
 // GESTION suppression d' equipement administrateur -------------------------------------------------------------------
