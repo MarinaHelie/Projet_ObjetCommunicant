@@ -1,0 +1,73 @@
+<% var title = 'Inscription' %>
+<% include head %>
+<body>
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Home Monitoring</strong> !</h1>
+                    <div class="description">
+                        <p>
+                            Modification d'un equipement
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Modifier un utilisateur</h3>
+                            <p>Entrez l'ensemble des données afin d'ajouter un utilisateur:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <span style="color:greenyellow"><i class="fa fa-plus"></i></span><span style="color:darkred"><i class="fa fa-user"></i> </span>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="/modifUA" method="post" class="login-form">
+                            <div class="dropdown">
+                                <select  class="form-control" id="id_u" name="id_u" >
+                                    <% for(var i = 0; i < utilisateur.length; i++) { %>
+                                    <br /> <option value="<%= utilisateur[i].id_u %>"> <%= utilisateur[i].nom_u %> <%= utilisateur[i].prenom_u %>  </option><br />
+                                    <% } %>
+                                </select> <br />
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">nom</label>
+                                <input type="text" name="nom_u" placeholder="Entrer votre nom" class="form-username form-control" id="nom_u">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">nom</label>
+                                <input type="text" name="prenom_u" placeholder="Entrer votre prenom" class="form-username form-control" id="prenom_u">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Adresse mail</label>
+                                <input type="text" name="mail_u" placeholder="Entrer votre adresse mail" class="form-username form-control" id="mail_u">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only"  for="password_u">Mot de Passe</label>
+                                <input type="password" name="mp_u" placeholder="Entrer votre mot de passe" class="form-password form-control" onkeyup="validateMdp2()" id="mp_u" >
+                            </div>
+
+                            <br /><button type="submit" class="btn">Modifier l'utilisateur !</button>
+                        </form>
+                        <br /> <a  href="/gestionUA" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+
+
+<% include foot %>

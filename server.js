@@ -678,4 +678,163 @@ app.get('/listeUA', function (req, res) {
 	}
 });
 
+
+// Gestiton UTILISATEUR ajout administrateur ---------------------------------------------------------------------------------------------------------
+app.get('/ajoutUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		res.render('ajoutUA');
+	}
+});
+
+app.post('/ajoutUA', function (req, res) {
+	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	var param = {nom_u: req.body.nom, prenom_u: req.body.prenom, mail_u: req.body.email, mp_u: req.body.password};
+	connection.connect();
+	connection.query("SELECT count(*) AS nb FROM user WHERE mail_u = ?", req.body.email, function (err, rows, fields) {
+		if (!err) {
+			if (rows[0]['nb'] == 0) {
+				connection.query('INSERT INTO user SET ?', param, function (err, result) {
+					if (!err) {
+						res.redirect('/listeUA');
+					} else {
+						logger.info("erreur boulet :", err);
+						res.redirect('/ajoutUA');
+					}
+				});
+			}
+
+		} else {
+			res.redirect('/ajoutUA');
+		}
+		connection.end();
+	});
+});
+
+// GESTION modification d' equipement administrateur -------------------------------------------------------------------
+
+app.get('/modifUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("select * from user  ;", function (err, rows, fields) {
+			if (!err) {
+				res.render('modifUA', {query: req.query, utilisateur: rows});
+			}
+			else
+			{
+				res.send (err);
+			}
+
+		});
+	}
+});
+app.post('/modifUA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	logger.info("donnee equipement :", req.body.numero_serie);
+	var param = {
+		nom_u: req.body.nom_u,
+		prenom_u: req.body.prenom_u,
+		mail_u: req.body.mail_u,
+		mp_u: req.body.mp_u,
+	};
+	var condition = {
+
+		id_u: req.body.id_u
+	};
+
+	connection.connect();
+	connection.query("UPDATE user SET nom_u = '"+req.body.nom_u+"', prenom_u='"+req.body.prenom_u+"', mail_u ='"+req.body.mail_u+"', mp_u ='"+req.body.mp_u +"' WHERE id_u='"+req.body.id_u + "' ;", function(err, result) {
+
+		if (!err) {
+
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeUA');
+
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/modifUA');
+		}
+		connection.end();
+	});
+});
+
+// GESTION suppression utilisateur administrateur -------------------------------------------------------------------
+
+app.get('/suppUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("select * from user   ;", function (err, rows, fields) {
+			res.render('suppUA', {query: req.query, utilisateur: rows});
+
+		});
+	}
+});
+
+
+app.post('/suppUA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	logger.info("donnee equipement :", req.body.numero_serie);
+	var param = {
+		libelle: req.body.libelle,
+		numero_serie: req.body.numero_serie,
+		marque: req.body.marque
+	};
+	var condition = {
+
+		id_u: req.body.id_u
+	};
+	var condition2 = {
+		id_e: req.body.id_e
+	};
+	connection.connect();
+	connection.query("DELETE FROM user WHERE id_u='"+req.body.id_u + "';", function(err, result) {
+
+		if (!err) {
+
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeUA');
+
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/suppUA');
+		}
+		connection.end();
+	});
+});
+
+
 app.listen(1313); 
