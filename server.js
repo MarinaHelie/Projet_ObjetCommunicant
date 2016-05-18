@@ -100,6 +100,8 @@ logger.info('server start');
 
 //getSensors(idDevice, getDevice());
 
+getDevice();
+
 // MAIN ----------------------------------------------------------------------------------------------------------------
 app.get('/', function (req, res) {
     /*wemo.discover(function(deviceInfo) {
@@ -110,7 +112,6 @@ app.get('/', function (req, res) {
      });
      });*/
 
-    getDevice();
     res.redirect('/main');
 });
 
