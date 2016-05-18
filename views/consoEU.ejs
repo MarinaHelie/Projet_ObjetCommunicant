@@ -1,4 +1,4 @@
-<% var title = 'Consommation utilisateur' %>
+<% var title = 'Consomation Equipements' %>
 <% include head %>
 
 <!-- Top content -->
@@ -20,7 +20,7 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Espace <b>utilisateur</b>  </h3>
+                            <h3>Consomation par <b>équipements</b>  </h3>
                             <p>Gerer l'ensemble de vos équipement dans votre espace</p>
                         </div>
                         <div class="form-top-right">
@@ -28,37 +28,33 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-
-                        <p>Consomation total de l'utilisateur : <%= consoTotal %> Kw</p>
-
-                        <form role="form" action="/listeCU" method="post" class="login-form">
-                            <label for="DateDeb">Date Debut</label>
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input type='date' class="form-control" id="DateDeb" name="dateDebut" />
-                            </div>
-                            <label for="DateFin">Date Fin</label>
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input type='date' class="form-control" id="DateFin" name="dateFin" />
-                            </div>
-                            <br /><button type="submit" class="btn">Conso total</button>
-                        </form>
-
+                        <table class="table table-striped">
+                            <thead>
+                                 <tr>
+                                    <th>libelle</th>
+                                    <th>numero de série</th>
+                                    <th>Consomation</th>
+                                 </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i = 0; i < consoEquip.length; i++) { %>
+                                <tr>
+                                    <td><%= consoEquip[i].libelle %></td>
+                                    <td><%= consoEquip[i].numero_serie %></td>
+                                    <td><%= consoEquip[i].value %></td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
                         <br /><a  href="/gestionCU" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
 
                     </div>
-
 
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
-
-
-
-<!--[if lt IE 10]>
-<script src="assets/js/placeholder.js"></script>
-<![endif]-->
-
-<% include foot%>
+<%include foot%>
