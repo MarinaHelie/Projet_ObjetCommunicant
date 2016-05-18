@@ -909,4 +909,48 @@ app.get('/listeRA', function (req, res) {
 	}
 });
 
+// GESTION ajout reference administrateur -----------------------------------------------------------------------------
+app.get('/ajoutRA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	connection.connect();
+	connection.query("select * from reference;", function (err, rows, fields) {
+		if (!err) {
+			res.render('ajoutRA', {query: req.query, reference: rows});
+		}
+	});
+});
+
+app.post('/ajoutRA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	var param = {
+		id_ref : req.body.id_ref,
+		type_ref : req.body.type_ref,
+		conso_ref_min : req.body.conso_ref_min,
+		conso_ref_max : req.body.conso_ref_max,
+		prix_ref_min : req.body.prix_ref_min,
+		prix_ref_max : req.body.prix_ref_max,
+		prix_wat: req.body.prix_wat
+	};
+	connection.connect();
+	connection.query('INSERT INTO reference SET ?', param, function (err, result) {
+		if (!err) {
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeRA');
+		} else {
+			logger.info("erreur boulet :", err);
+			res.redirect('/ajoutRA');
+		}
+	});
+});
+
 app.listen(1313); 
