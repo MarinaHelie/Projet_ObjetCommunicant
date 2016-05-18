@@ -267,6 +267,7 @@ app.get('/utilisateur', function (req, res) {
 });
 
 
+
 // Gestion EQUIPEMENT --------------------------------------------------------------------------------------------------
 app.get('/gestionEU', function (req, res) {
     if (!req.session.login) {
@@ -284,6 +285,44 @@ app.get('/ajoutEU', function (req, res) {
         res.render('ajoutEU');
     }
 });
+app.post('/ajoutEU', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	var param = {
+		libelle: req.body.libelle,
+		numero_serie: req.body.numero_serie,
+		marque: req.body.marque,
+		id_u: req.session.id_user
+	};
+	connection.connect();
+	connection.query("SELECT count(*) AS nb FROM equipement WHERE numero_serie = ?", req.body.numero_serie, function (err, rows, fields) {
+		if (!err) {
+
+			if (rows[0]['nb'] == 0) {
+				connection.query('INSERT INTO equipement SET ?', param, function (err, result) {
+					if (!err) {
+						logger.info("donnée equipement :", param);
+						res.redirect('/listeEU');
+					} else {
+						logger.info("erreur boulet :", err);
+						res.redirect('/ajoutEU');
+					}
+				});
+			}
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/ajoutEU');
+		}
+		connection.end();
+	});
+});
+
+
 
 // Liste Equipement ------------------------------------------------------------------------------------------------
 app.get('/listeEU', function (req, res) {
