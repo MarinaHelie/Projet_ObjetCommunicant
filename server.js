@@ -410,6 +410,59 @@ app.post('/ajoutEA', function (req, res) {
     });
 });
 
+// GESTION modification d' equipement administrateur -------------------------------------------------------------------------------------------------------
+
+app.get('/modifEA', function (req, res) {
+    if(!req.session.login) {
+        res.redirect('/');
+    } else {
+        var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+            host: 'localhost',
+            user: 'ioc',
+            password: 'ioc',
+            database: 'ioc_domotique'
+        });
+        connection.connect();
+        connection.query("select * from equipement where id_u = ? and id_e = ?", req.body.id_u, req.body.id_e, function (err, rows, fields) {
+            if (!err) {
+                
+                res.render('modifEA', {query: req.query, equipement: rows});
+            }
+            logger.info("erreur : ", err);
+        });
+    }
+});
+app.post('/modifEA', function (req, res) {
+    var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+        host: 'localhost',
+        user: 'ioc',
+        password: 'ioc',
+        database: 'ioc_domotique'
+    });
+    var param = {libelle: req.body.libelle, numero_serie: req.body.numero_serie, marque: req.body.marque , id_u: req.body.id_u, id_e: req.body.id_e};
+    connection.connect();
+    connection.query("SELECT * FROM equipement WHERE id_e = ?", req.body.id_e, function (err, rows, fields) {
+        if (!err) {
+
+            if(rows[0]['nb'] == 1){
+                connection.query('UPDATE equipement SET ?', param, function(err, result) {
+                    if(!err){
+                        logger.info("donnée equipement :", param);
+                        res.redirect('/listeEA');
+                    } else {
+                        logger.info("erreur boulet :", err);
+                        res.redirect('/modifEA');
+                    }
+                });
+            }
+
+        } else {
+            logger.info("erreur encore boulet : ",err);
+            res.redirect('/modifEA');
+        }
+        connection.end();
+    });
+});
 
 
 app.listen(1313); 
