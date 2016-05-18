@@ -453,11 +453,11 @@ app.post('/modifEA', function (req, res) {
         id_e: req.body.id_e
     };
     connection.connect();
-	connection.query('UPDATE equipement SET ? WHERE id_u = ? and id_e =?', [{ libelle:req.body.libelle  },{numero_serie: req.body.numero_serie},{marque:req.body.marque},  req.body.id_u, req.body.id_e]), function(err, result) {
+	connection.query('UPDATE equipement SET ? WHERE id_u = ? and id_e =?', [{ libelle:req.body.libelle  },{numero_serie: req.body.numero_serie},{marque:req.body.marque}, id_u, id_e]), function(err, result) {
         if (!err) {
 
          logger.info("donnée equipement :", param);
-         res.redirect('/listeEA');                    
+         res.redirect('/listeEA');
 
 
         } else {
