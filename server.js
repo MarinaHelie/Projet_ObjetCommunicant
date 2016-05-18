@@ -423,7 +423,7 @@ app.get('/modifEA', function (req, res) {
             database: 'ioc_domotique'
         });
         connection.connect();
-        connection.query("select * from equipement where id_u = ? and id_e = ?", req.body.id_u, req.body.id_e, function (err, rows, fields) {
+        connection.query("select * from equipement  ;", function (err, rows, fields) {
             if (!err) {
                 
                 res.render('modifEA', {query: req.query, equipement: rows});
@@ -441,7 +441,7 @@ app.post('/modifEA', function (req, res) {
     });
     var param = {libelle: req.body.libelle, numero_serie: req.body.numero_serie, marque: req.body.marque , id_u: req.body.id_u, id_e: req.body.id_e};
     connection.connect();
-    connection.query("SELECT * FROM equipement WHERE id_e = ?", req.body.id_e, function (err, rows, fields) {
+    connection.query("SELECT * FROM equipement WHERE id_e = ?", req.body.id_e , function (err, rows, fields) {
         if (!err) {
 
             if(rows[0]['nb'] == 1){
