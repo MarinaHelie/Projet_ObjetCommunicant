@@ -666,4 +666,44 @@ app.get('/listeUA', function (req, res) {
 	}
 });
 
+
+// Gestiton UTILISATEUR ajout administrateur ---------------------------------------------------------------------------------------------------------
+app.get('/ajoutUA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		res.render('ajoutUA');
+	}
+});
+
+app.post('/ajoutUA', function (req, res) {
+	var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	var param = {nom_u: req.body.nom, prenom_u: req.body.prenom, mail_u: req.body.email, mp_u: req.body.password};
+	connection.connect();
+	connection.query("SELECT count(*) AS nb FROM user WHERE mail_u = ?", req.body.email, function (err, rows, fields) {
+		if (!err) {
+			if (rows[0]['nb'] == 0) {
+				connection.query('INSERT INTO user SET ?', param, function (err, result) {
+					if (!err) {
+						res.redirect('/listeUA');
+					} else {
+						logger.info("erreur boulet :", err);
+						res.redirect('/ajoutUA');
+					}
+				});
+			}
+
+		} else {
+			res.redirect('/ajoutUA');
+		}
+		connection.end();
+	});
+});
+
+
 app.listen(1313); 
