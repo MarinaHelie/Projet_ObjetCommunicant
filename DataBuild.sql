@@ -111,14 +111,14 @@ create table if not exists `consomation` (
 
 create table if not exists `temperature` (
     `id_e`int(11) not null,
-    `date_debut` date,
-    `date_fin`date,
-    `heureDebut` time,
-    `heureFin` time,
-    `temperature_actuel`int(12),
-    `temperature_min`float,
-    `temperature_max`float,
-    primary key (`id_e`, `date_debut`),
+    `date_debut` date not null,
+    `date_fin`date null,
+    `heureDebut` time not null,
+    `heureFin` time null,
+    `temperature_actuel`int(12) not null,
+    `temperature_min`float null,
+    `temperature_max`float null,
+    primary key (`id_e`, `date_debut`, `heureDebut`),
 	CONSTRAINT `temperature` FOREIGN KEY (`id_e`) REFERENCES `equipement` (`id_e`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
