@@ -74,7 +74,7 @@ VALUES ('Grille-pain', 5, 10, 1, 2, 15.03);
 CREATE TABLE IF NOT  EXISTS `equipement` (
   `id_e` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) not null,
-  `numero_serie` varchar(50) not null,
+  `numero_serie` varchar(50) not null UNIQUE,
   `marque` varchar(50) NOT NULL,
   `id_ref` int(11),
   `id_u` int(11) NOT NULL,
