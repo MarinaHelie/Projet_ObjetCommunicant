@@ -467,7 +467,7 @@ app.get('/modifU', function (req, res) {
     if (!req.session.login) {
         res.redirect('/');
     } else {
-        res.render('modifU');
+        res.render('modifU', {nom: req.session.nom, prenom: req.session.prenom});
     }
 });
 
