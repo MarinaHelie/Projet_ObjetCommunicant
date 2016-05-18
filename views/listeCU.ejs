@@ -30,7 +30,20 @@
                     <div class="form-bottom">
 
                         <p>Consomation total de l'utilisateur : <%= consoTotal %></p>
-                        <br /><a  href="/utilisateur" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
+
+                        <form role="form" action="/listeCU" method="post" class="login-form">
+                            <label for="DateDeb">Date Debut</label>
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='date' class="form-control" id="DateDeb" name="dateDebut" />
+                            </div>
+                            <label for="DateFin">Date Fin</label>
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='date' class="form-control" id="DateFin" name="dateFin" />
+                            </div>
+                            <br /><button type="submit" class="btn">Conso total</button>
+                        </form>
+
+                        <br /><a  href="/gestionCU" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
 
                     </div>
 

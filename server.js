@@ -360,16 +360,35 @@ app.get('/listeCU', function (req, res) {
             database: 'ioc_domotique'
         });
         connection.connect();
-        connection.query("SELECT Sum(consomation) FROM consomation where id_u = '" + req.session.id_user + "';", function (err, rows, fields) {
+        connection.query("SELECT Sum(consomation) as value FROM consomation where id_u = '" + req.session.id_user + "';", function (err, rows, fields) {
             if (!err) {
-            	logger.info("conso total :", rows);
-                res.render('listeCU', {consoTotal: rows});
+            	logger.info("conso total :", rows[0]);
+                res.render('listeCU', {consoTotal: rows[0]['value']});
             }
             else {
                 res.send(err);
             }
         });
     }
+});
+
+app.post('/listeCU', function(req, res){
+	var connection = mysql.createConnection({
+	    host: 'localhost',
+	    user: 'ioc',
+	    password: 'ioc',
+	    database: 'ioc_domotique'
+	});
+	connection.connect();
+	connection.query("SELECT Sum(consomation) as value FROM consomation where id_u = '" + req.session.id_user + "' AND date_debut >= '" + req.body.dateDebut + "' AND date_fin <= '" + req.body.dateFin + "';", function (err, rows, fields) {
+	    if (!err) {
+	    	logger.info("conso total :", rows[0]);
+	        res.render('listeCU', {consoTotal: rows[0]['value']});
+	    }
+	    else {
+	        res.send(err);
+	    }
+	});
 });
 
 
