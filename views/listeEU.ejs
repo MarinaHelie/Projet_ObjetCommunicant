@@ -1,4 +1,4 @@
-<% var title = 'Gestion Equipement' %>
+<% var title = 'Liste Equipement' %>
 <% include head %>
 
 <!-- Top content -->
@@ -20,7 +20,7 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Gestion <b>équipement</b>  </h3>
+                            <h3>Liste <b>équipement</b>  </h3>
                             <p>Gerer l'ensemble de vos équipement dans votre espace</p>
                         </div>
                         <div class="form-top-right">
@@ -28,10 +28,24 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-
-                        <a href="/listeEU" class="btn btn-block btn-info"><span class="glyphicon glyphicon-home"></span>  Liste des équipements </a> <br />
-                        <a href="/ajoutEU" class="btn btn-block btn-success"><span class="glyphicon glyphicon-flash"></span> Ajout d'un équipement  </a> <br />
-                        <a href="/supprEU" class="btn btn-block btn-warning"><span class="glyphicon glyphicon-user"></span> Supprimer un équipement </a> <br />
+                        <table class="table table-striped">
+                            <thead>
+                                 <tr>
+                                    <th>libelle</th>
+                                    <th>numero de série</th>
+                                    <th>marque</th>
+                                 </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i = 0; i < equipements.length; i++) { %>
+                                <tr>
+                                    <td><%= equipements[i].libelle %></td>
+                                    <td><%= equipements[i].numero_serie %></td>
+                                    <td><%= equipements[i].marque %></td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
                         <br /><a  href="/utilisateur" class="btn  btn-danger"> <span class="fa fa-reply" aria-hidden="true"></span> Retour</a>
 
                     </div>

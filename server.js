@@ -206,7 +206,7 @@ app.get('/listeEU', function(req, res) {
 	if(!req.session.login) {
 		res.redirect('/');
 	} else {
-		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+		var connection = mysql.createConnection({
 			host: 'localhost',
 			user: 'ioc',
 			password: 'ioc',
@@ -215,7 +215,7 @@ app.get('/listeEU', function(req, res) {
 		connection.connect();
 		connection.query("SELECT * FROM equipement WHERE id_u = ?", req.session.id_user, function (err, rows, fields) {
 			if (!err) {
-				res.render('listeEU', rows);
+				res.render('listeEU',{equipements : rows});
 			}
 			else
 			{
