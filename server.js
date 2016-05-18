@@ -26,6 +26,59 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'cestunsecretoupas' })); // session secret
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
+// Utilitaire Température-----------------------------------------------------------------------------------------------
+var idDevice;
+var idSensorTemp= {};
+
+function getDevice()
+{
+	var adr = "https://api.sensit.io/v1/devices";
+	var http = new XMLHttpRequest();
+	http.open("GET", adr, true);
+	http.setRequestHeader("Authorization", "Bearer " + token);
+	http.onreadystatechange = function()
+	{
+		if(http.readyState==4)
+		{
+			var t=JSON.parse(http.responseText);
+			idDevice = t.data[0].id;
+		}
+	}
+	http.send(null);
+};
+
+function getTemperature(idDev, idSen)
+{
+	var adr = "https://api.sensit.io/v1/devices/" + idDev + "/sensors/" + idSen;
+	var http = new XMLHttpRequest();
+	http.open("GET", adr, true);
+	http.setRequestHeader("Authorization", "Bearer " + token);
+	http.onreadystatechange = function()
+	{
+		if(http.readyState == 4)
+		{
+			var t = JSON.parse(http.responseText);
+		}
+	}
+	http.send(null);
+};
+		
+function getSensors(id)
+{
+	var adr = "https://api.sensit.io/v1/devices/" + id;
+	var http = new XMLHttpRequest();
+	http.open("GET", adr, true);
+	http.setRequestHeader("Authorization", "Bearer " + token);
+	http.onreadystatechange = function()
+	{
+		if(http.readyState==4)
+		{
+			var t = JSON.parse(http.responseText);
+		}
+	}
+	http.send(null);
+};
+
 // LOGGER START --------------------------------------------------------------------------------------------------------
 logger.info('server start');
 
