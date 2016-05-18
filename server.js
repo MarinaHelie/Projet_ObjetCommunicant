@@ -481,4 +481,76 @@ app.get('/modifU', function (req, res) {
     }
 });
 
+// GESTION suppression d' equipement administrateur -------------------------------------------------------------------
+
+app.get('/suppEA', function (req, res) {
+	if (!req.session.login) {
+		res.redirect('/');
+	} else {
+		var connection = mysql.createConnection({	//TODO MODIFIER LES INFORMATIONS DE CONNEXION !
+			host: 'localhost',
+			user: 'ioc',
+			password: 'ioc',
+			database: 'ioc_domotique'
+		});
+		connection.connect();
+		connection.query("select * from equipement   ;", function (err, rows, fields) {
+			if (!err) {
+				connection.query("select * from user   ;", function (err, rows2, fields) {
+					if (!err) {
+						res.render('suppEA', {query: req.query, equipement: rows, utilisateur: rows2});
+					}
+					else
+					{
+						res.send (err);
+					}
+				});
+			}
+			else
+			{
+				res.send (err);
+			}
+
+		});
+	}
+});
+
+
+app.post('/suppEA', function (req, res) {
+	var connection = mysql.createConnection({
+		host: 'localhost',
+		user: 'ioc',
+		password: 'ioc',
+		database: 'ioc_domotique'
+	});
+	logger.info("donnee equipement :", req.body.numero_serie);
+	var param = {
+		libelle: req.body.libelle,
+		numero_serie: req.body.numero_serie,
+		marque: req.body.marque
+	};
+	var condition = {
+
+		id_u: req.body.id_u
+	};
+	var condition2 = {
+		id_e: req.body.id_e
+	};
+	connection.connect();
+	connection.query("DELETE FROM equipement  WHERE id_u='"+req.body.id_u + "' AND id_e =' "+req.body.id_e+"' ;", function(err, result) {
+
+		if (!err) {
+
+			logger.info("donnée equipement :", param);
+			res.redirect('/listeEA');
+
+
+		} else {
+			logger.info("erreur encore boulet : ", err);
+			res.redirect('/suppEA');
+		}
+		connection.end();
+	});
+});
+
 app.listen(1313); 
