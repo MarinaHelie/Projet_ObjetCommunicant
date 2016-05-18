@@ -276,6 +276,15 @@ app.get('/gestionEU', function (req, res) {
     }
 });
 
+// Ajout EU
+app.get('/ajoutEU', function (req, res) {
+    if (!req.session.login) {
+        res.redirect('/main');
+    } else {
+        res.render('ajoutEU');
+    }
+});
+
 // Liste Equipement ------------------------------------------------------------------------------------------------
 app.get('/listeEU', function (req, res) {
     if (!req.session.login) {
